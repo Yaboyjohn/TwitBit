@@ -1,0 +1,33 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Damion">
+</head>
+<div id="search-page">
+  <h1 id="title">TWITBIT </h1>
+  <h3 id="description"> Your Personal Tweet Analyzer </h3>
+  <%= form_for @search do |f| %>
+    <% if @search.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(@search.errors.count, "error") %> prohibited
+          this article from being saved:
+        </h2>
+        <ul>
+          <% @search.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <p id="search-box-container">
+      <img id="go-icon" src="https://d30y9cdsu7xlg0.cloudfront.net/png/27269-200.png">
+      <%= f.text_field :entry, id: "search-box", :placeholder => "Type in your username here:" %>
+      <%= f.submit "        ", id: "go-button"%>
+    </p>
+
+  <% end %>
+  <div id="search-history-button-container">
+    <%= link_to 'Search History', searches_path, id: "search-history-button" %>
+  </div>
+</div>

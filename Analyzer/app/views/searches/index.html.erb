@@ -1,0 +1,75 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans">
+</head>
+<h1 id="search-history">Search History</h1>
+<table id="search-table">
+  <tr id="search-table-title">
+    <th>Username</th>
+  </tr>
+
+  <% @searches.each do |search| %>
+    <tr id="entry-row">
+      <td id="username"><%= link_to "@" + search.entry,  search_path(search), id: "username-search"%></td>
+      <td id="delete-button-container"><%= link_to 'X', search_path(search),
+              method: :delete, id: "delete-button"
+              %></td>
+    </tr>
+  <% end %>
+</table>
+
+<div id="new-search-container">
+  <%= link_to 'New Search', new_search_path, id: "search-button" %>
+</div>
+
+<script>
+$(document).ready(function () {
+  $('#search-button').click(function() {
+    window.location.reload();
+  });
+  /*
+  var coloration = function() {
+      $('#search-table #entry-row #delete-button-container').css("background-color", "red");
+      $('#entry-row').css("height", "35px");
+    }
+
+  $('#search-table #entry-row').mouseenter(function() {
+    setTimeout(coloration, 30);
+    $('#delete-button-container').animate({
+      right: "8%"
+  }, 200);
+});*/
+
+//var table = $("#search-table tr").length;
+  $('#search-table tr').mouseenter(function() {
+    var rowIndex = $("#search-table #entry-row").index(this);
+    var row = $('#search-table tr').eq(rowIndex + 1);
+    var username = $(row).find('#username-search');
+    $(username).css("color", "#00aced");
+    var delButton = $(row).find("#delete-button-container");
+    var delText = $(row).find("#delete-button");
+    $(delButton).css('background-color', 'red');
+    $(delText).css('visibility', 'visible');
+    $(delButton).animate({
+      width: "10%"
+    }, 200);
+
+  });
+  $('#search-table tr').mouseleave(function() {
+    var rowIndex = $("#search-table tr").index(this);
+    var row = $('#search-table tr').eq(rowIndex);
+    var username = $(row).find('#username-search');
+    $(username).css("color", "black");
+    var delButton = $(row).find("#delete-button-container");
+    var delText = $(row).find("#delete-button");
+    setTimeout(function() {
+      $(delButton).animate({
+        width: "0"
+      }, 200);
+      setTimeout(function() {
+        $(delText).css('visibility', 'hidden');
+        $(delButton).css('background-color', 'transparent');
+      }, 200);
+    }, 1600);
+  });
+});
+</script>

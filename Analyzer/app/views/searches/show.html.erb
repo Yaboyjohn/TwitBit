@@ -1,0 +1,183 @@
+<head>
+  <script async defer
+    src=
+    "https://maps.googleapis.com/maps/api/js?key=AIzaSyBmCWMVKVJvNyUrCwP6yIwLApM9qFVpu2c&libraries=places,drawing,geometry&v=3&callback=initMap">
+  </script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yellowtail">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Comfortaa">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Kalam">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Sriracha">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Scope+One">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      /*background-color: #11c1ff;*/
+      background-color: #051454;
+      background-image: none !important;
+    }
+  </style>
+</head>
+<!-- The Title of the show view -->
+<h2 id="twitbit-title"> Your Twitbit Score </h2>
+<!-- Container div for the twitbit score section -->
+<div id="show-page-container">
+  <!-- The score/rotating graph side of the section -->
+  <div id="score-page">
+    <div id="complete-score-holder">
+      <div id="score-circle">
+        <div id="chart"></div>
+        <div id="inner-circle-outline">
+          <!-- actual score to be dispalyed -->
+          <p id="score"></p>
+          <!-- stores the actual score for animations but is not visibly apparent -->
+          <p id="dummyscore"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- The category/picture person side of the section -->
+  <div id="comparison-picture-div">
+    <div id="comparison-picture-container">
+      <img id="comparison-image" src="http://orig08.deviantart.net/accf/f/2015/299/9/7/white_square__4k__by_flutterspon-d9efzq4.jpg">
+    </div>
+  </div>
+  <!-- The middle of the section with the Category name and intro -->
+  <div id="comparison">
+    <p id="comparison-intro">You fall under the category of...</p>
+  </div>
+  <h2 id="comparison-category">TEXT</h2>
+  <p id="twitbit-information"> What is this? </p>
+</div>
+<!-- div for the info that pops up from clicking "what's this?" -->
+<div id="extra-info-div">
+  <h1 id="extra-info-close-button">X</h1>
+  <h2 id='extra-info-title'>What exactly is my Twitbit score?</h2>
+  <p id='extra-info'>We're glad you asked. TwitBit takes into account your most recent
+    200 tweets (not including retweets) and analyzes your word choice and spelling. This then generates a score,
+    which places you under a certain category of people who share relatively the same score as you.
+  </p>
+  <p id="see-more-link">To see more click here>>></p>
+</div>
+<!-- The options box in the upper left hand of the page -->
+<div id="options-container"></div>
+<div id="options-box">
+  <ul id="options-list">
+    <li class="options" id="about">TwitBit Score</li></a>
+    <li class="options" id="projects">Data</li>
+    <li class="options" id="hot-spots">Hot Spots</li>
+    <li class="options" id="contact">Best Friends</li>
+    <li class="options"><%= link_to 'Search', new_search_path, id: "back-button" %></li>
+    <li class="options"><%= link_to 'History', searches_path, id: "back-button" %></li>
+    </ul>
+</div>
+<!-- start of the data section; placeholder for now -->
+  <div id="data-page">
+  </div>
+<div id="map-page">
+<!-- the google map-->
+<h2 id="hotspots-title">🔥 MY HOTSPOTS 🔥</h2>
+  <div id="map"></div>
+</div>
+<script src="d3.v4.min.js"></script>
+<script>
+//setTimeout delay to allow the dummy score to load
+setTimeout(function() {
+  (function(d3) {
+            //dummyscore to generate each length of the pie chart arc
+            var dummyscore = document.getElementById('dummyscore').innerHTML;
+            //do everything out of 100
+            //max will be 0.4
+            var bar = (dummyscore / 0.4) * 100;
+            var emptySpace = 100 - bar;
+            'use strict';
+            var dataset = [
+              { label: 'Bar', count: bar },
+              { label: 'Empty Space', count: emptySpace },
+
+            ];
+            //not responsive; look into this
+            var width = 240;
+            var height = 232;
+            var donutWidth = 20;
+            var radius = Math.min(width, height) / 2;
+            var color = d3.scaleOrdinal(d3.schemeCategory10);
+            var colors = ["white", "#051454"];
+            var svg = d3.select('#chart')
+              .append('svg')
+              .attr('width', width)
+              .attr('height', height)
+              .append('g')
+              .attr('transform', 'translate(' + (width / 2) +
+                ',' + (height / 2) + ')');
+
+            var arc = d3.arc()
+              .innerRadius(radius - donutWidth)
+              .outerRadius(radius);
+            var pie = d3.pie()
+              .value(function(d) { return d.count; })
+              .sort(null);
+            var path = svg.selectAll('path')
+              .data(pie(dataset))
+              .enter()
+              .append('path')
+              .attr('d', arc)
+              .attr('fill', function(d, i) {
+                return colors[i];
+              });
+              path.transition()
+              .duration(2000)
+              .attrTween("d", tweenPie);
+
+              //the rotating arc function
+              function tweenPie(b) {
+                var i = d3.interpolate({startAngle: 0, endAngle: 2 * Math.PI}, b);
+                return function(t) { return arc(i(t)); };
+              }
+          })(window.d3);
+}, 800);
+
+$(document).ready(function() {
+  //highlight the option when you hover over it
+  $('.options').mouseenter(function() {
+    $(this).css("opacity", "1");
+  });
+  $('.options').mouseleave(function() {
+    $(this).css("opacity", "0.2");
+  });
+  //function to move the score circle and the comparison circle
+  var moveIcons = function() {
+    $('#score-circle').animate({
+      left: "30%"
+    }, 600);
+    $('#comparison-picture-div').animate({
+      left: "68%"
+    }, 600);
+  }
+  //delay to make it look nicer
+  setTimeout(moveIcons, 1500);
+  var spanWidth = $('#comparison-intro').width();
+  $('#comparison').animate( { width: 1000 }, 3000 );
+
+  var showExtraInfo = function() {
+    $('#extra-info-div').animate({
+      height: "60%"
+    }, 300);
+  }
+
+  var hideExtraInfo = function() {
+    $('#extra-info-div').animate({
+      height: "0%"
+    }, 300);
+  }
+  $("#twitbit-information").click(function() {
+    showExtraInfo();
+  });
+  $("#extra-info-close-button").click(function() {
+    hideExtraInfo();
+  });
+});
+</script>
