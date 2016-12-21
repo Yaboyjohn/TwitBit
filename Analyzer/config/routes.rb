@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   get 'searches/new'
   root 'searches#new'
   resources :searches
+  get 'searches/words/:id', to: 'searches#words', as: "searches_words"
 end

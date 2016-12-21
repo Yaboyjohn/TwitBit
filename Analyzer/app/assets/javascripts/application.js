@@ -150,7 +150,7 @@ function initMap() {
       dataPage.style.backgroundImage = 'url(http://img.wallpaperfolder.com/f/54550F1D0253/bright-sunshine-gt-backgrounds.jpg)';
     }
     else if (most_frequent_name == "afternoon") {
-      dataPage.style.backgroundImage = 'url(http://www.cfau-pd.net/images/morning-wallpaper/morning-wallpaper-4.jpg)';
+      dataPage.style.backgroundImage = 'url(http://www.wallcoo.net/nature/amazing%20hd%20landscapes%20wallpapers/images/%5Bwallcoo_com%5D_Blissful_Late_Afternoon.jpg)';
     }
     else if (most_frequent_name == "evening") {
       dataPage.style.backgroundImage = 'url(http://pre12.deviantart.net/97ef/th/pre/i/2012/315/d/7/november_10st_evening_after_rainy_day_in_arcipelag_by_eskile-d5knphw.jpg)';

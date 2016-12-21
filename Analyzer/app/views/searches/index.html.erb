@@ -9,7 +9,7 @@
 
   <% @searches.each do |search| %>
     <tr id="entry-row">
-      <td id="username"><%= link_to "@" + search.entry,  search_path(search), id: "username-search"%></td>
+      <td id="username"><%= link_to "@" + search.entry,  search_path(search), id: "username-search", :method => :get%></td>
       <td id="delete-button-container"><%= link_to 'X', search_path(search),
               method: :delete, id: "delete-button"
               %></td>

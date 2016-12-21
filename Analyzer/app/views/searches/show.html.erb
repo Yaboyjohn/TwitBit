@@ -3,6 +3,9 @@
     src=
     "https://maps.googleapis.com/maps/api/js?key=AIzaSyBmCWMVKVJvNyUrCwP6yIwLApM9qFVpu2c&libraries=places,drawing,geometry&v=3&callback=initMap">
   </script>
+  <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <META HTTP-EQUIV="Expires" CONTENT="-1">
+
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yellowtail">
@@ -60,7 +63,7 @@
     200 tweets (not including retweets) and analyzes your word choice and spelling. This then generates a score,
     which places you under a certain category of people who share relatively the same score as you.
   </p>
-  <p id="see-more-link">To see more click here>>></p>
+  <%= link_to 'To see more click here>>>', searches_words_path, id: "see-more-link" %>
 </div>
 <!-- The options box in the upper left hand of the page -->
 <div id="options-container"></div>

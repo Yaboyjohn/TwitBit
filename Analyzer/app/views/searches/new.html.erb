@@ -23,9 +23,8 @@
     <p id="search-box-container">
       <img id="go-icon" src="https://d30y9cdsu7xlg0.cloudfront.net/png/27269-200.png">
       <%= f.text_field :entry, id: "search-box", :placeholder => "Type in your username here:" %>
-      <%= f.submit "        ", id: "go-button"%>
+      <%= f.submit "        ", id: "go-button", :method => :get%>
     </p>
-
   <% end %>
   <div id="search-history-button-container">
     <%= link_to 'Search History', searches_path, id: "search-history-button" %>

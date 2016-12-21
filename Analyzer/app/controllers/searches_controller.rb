@@ -27,6 +27,10 @@ class SearchesController < ApplicationController
     redirect_to searches_path
   end
 
+  def words
+
+  end
+
   def show
     #dictionary for checking spelling errors
     dictionary = Dictionary.from_file('en copy.txt')
@@ -50,9 +54,9 @@ class SearchesController < ApplicationController
     @tweets = client.user_timeline("@" + @search.entry, count: 200, include_rts: false)
 
     #this is an array for all the misspelled words
-    @misspelled_words = []
+    $misspelled_words = []
     #the hash for times when they tweet
-    @tweet_time_preference = {
+    $tweet_time_preference = {
       :super_early_morning => 0,
       :morning => 0,
       :afternoon => 0,
@@ -61,7 +65,7 @@ class SearchesController < ApplicationController
       :late_night => 0
     }
     #the total number of words
-    @total_word_count = 0
+    $total_word_count = 0
 
     #the array consisting of an array of arrays of arrays
     #the first element is an array of 4 arrays (the four coordinates pairs)
@@ -82,25 +86,25 @@ class SearchesController < ApplicationController
 
       #if the time is between 4 and 6 am
       if (tweet_time >= 4 && tweet_time <= 6)
-        @tweet_time_preference[:super_early_morning] += 1
+        $tweet_time_preference[:super_early_morning] += 1
       #time is between 7 and 11am
       elsif (tweet_time >= 7 && tweet_time <= 11)
-        @tweet_time_preference[:morning] += 1
+        $tweet_time_preference[:morning] += 1
       #time is bettwen noon and 4 pm
       elsif (tweet_time >= 12 && tweet_time <= 16)
-        @tweet_time_preference[:afternoon] += 1
+        $tweet_time_preference[:afternoon] += 1
       #time is between 5 and 7pm
       elsif (tweet_time >= 17 && tweet_time <= 19)
-        @tweet_time_preference[:evening] += 1
+        $tweet_time_preference[:evening] += 1
       #time is between 8 and midnight
       elsif (tweet_time >= 20 && tweet_time <= 24)
-        @tweet_time_preference[:night] += 1
+        $tweet_time_preference[:night] += 1
       else
         #time is between 1 am and 3 am
-        @tweet_time_preference[:late_night] += 1
+        $tweet_time_preference[:late_night] += 1
       end
       #@tweet_time_preference = @tweet_time_preference.sort_by {|k,v| v}.reverse
-      gon.tweet_times = @tweet_time_preference
+      gon.tweet_times = $tweet_time_preference
 
       #pass the locations array to the js file (array of arrays of arrays)
       gon.locations = @locations
@@ -108,7 +112,7 @@ class SearchesController < ApplicationController
       words = text.split(" ") #splits tweet into an array of words
       words.each do |word|
         #keep track of how many total words there were
-        @total_word_count += 1
+        $total_word_count += 1
         #convert the word to a symbol
         word_to_add = word.to_sym
         #make the word the key and increment its value by 1
@@ -116,15 +120,15 @@ class SearchesController < ApplicationController
         if (not dictionary.exists?(word)) && #not in dictionary and not an image
           (not single_letter_checker(word)) && #not 'a' or 'A' and not a hashtag
           (not integer_checker(word)) #not a number
-          @misspelled_words.push(word) #add it to the misspelled words array
+          $misspelled_words.push(word) #add it to the misspelled words array
           @error_count += 1 #increment the count of wrong words
         end
       end
-      @score = @total_word_count
+      @score = $total_word_count
     end
     #pass the misspelled words array to js
-    gon.misspelled_words = @misspelled_words
-    gon.total = @total_word_count
+    gon.misspelled_words = $misspelled_words
+    gon.total = $total_word_count
 
     #a counter to reach 10 in the top words hash
     word_count = 1
