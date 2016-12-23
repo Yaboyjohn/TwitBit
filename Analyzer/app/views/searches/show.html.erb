@@ -21,6 +21,7 @@
       /*background-color: #11c1ff;*/
       background-color: #051454;
       background-image: none !important;
+      font-family: Lato;
     }
 
     .axis path,
@@ -32,7 +33,7 @@
 
     .bar {
       position: absolute;
-      fill: blue;
+      /*fill: blue;*/
     }
 
     .bar:hover {
@@ -137,10 +138,10 @@
 </div>
 <script>
 var margin = {top: 40, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
+    width = 400 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var formatPercent = d3.format(".0%");
+var formatPercent = d3.format("");
 
 var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
@@ -161,7 +162,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
+    return "<strong>" + d.name + ":</strong> <span style='color:red'>" + d.frequency +"</span>";
   })
 
 var svg = d3.select("#data-page").append("svg")
@@ -172,40 +173,44 @@ var svg = d3.select("#data-page").append("svg")
 
 svg.call(tip);
 
-// The new data variable.
-
+//colors
+var color = d3.scale.ordinal().range(["#6b486b", "#a05d56", "#d0743c", "#ff8c00", "white", "blue"]);
 var data = [
-  {letter: "Super early morning", frequency: gon.tweet_times.super_early_morning},
-  {letter: "Morning", frequency: gon.tweet_times.morning},
-  {letter: "Afternoon", frequency: gon.tweet_times.afternoon},
-  {letter: "Evening", frequency: gon.tweet_times.evening},
-  {letter: "Night", frequency: gon.tweet_times.night},
-  {letter: "Late Night", frequency: gon.tweet_times.late_night}
+  {name: "Super early morning", frequency: gon.tweet_times.super_early_morning, id: 1},
+  {name: "Morning", frequency: gon.tweet_times.morning, id: 2},
+  {name: "Afternoon", frequency: gon.tweet_times.afternoon, id: 3},
+  {name: "Evening", frequency: gon.tweet_times.evening, id: 4},
+  {name: "Night", frequency: gon.tweet_times.night, id: 5},
+  {name: "Late Night", frequency: gon.tweet_times.late_night, id: 6}
 ]
 // The following code was contained in the callback function.
-x.domain(data.map(function(d) { return d.letter; }));
+x.domain(data.map(function(d) { return d.name; }));
 y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
 svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
+    .style('fill', 'white')
     .call(xAxis);
 
 svg.append("g")
     .attr("class", "y axis")
     .call(yAxis)
+    .style('fill', 'white')
+
   .append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 6)
     .attr("dy", ".71em")
     .style("text-anchor", "end")
-    .text("Frequency");
+    .style('fill', 'white')
+    .text("Count");
 
 svg.selectAll(".bar")
     .data(data)
   .enter().append("rect")
-    .attr("class", "bar")
-    .attr("x", function(d) { return x(d.letter); })
+    .attr("class", function(d, i) { return 'bar_' + d.id} )
+    .attr("x", function(d) { return x(d.name); })
     .attr("width", x.rangeBand())
     .attr("y", function(d) { return y(d.frequency); })
     .attr("height", function(d) { return height - y(d.frequency); })
@@ -216,11 +221,6 @@ function type(d) {
   d.frequency = +d.frequency;
   return d;
 }
-
-</script>
-*/
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
 
 //setTimeout delay to allow the dummy score to load
 setTimeout(function() {
