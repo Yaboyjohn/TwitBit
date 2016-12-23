@@ -101,7 +101,7 @@ var donutWidth = 100;
 var legendRectSize = 18;
 var legendSpacing = 4;
 var data2 = [
- {time: "Super early morning", frequency: gon.tweet_times.super_early_morning, id: 1, total: gon.num_tweets},
+ {time: "Early Morning", frequency: gon.tweet_times.super_early_morning, id: 1, total: gon.num_tweets},
  {time: "Morning", frequency: gon.tweet_times.morning, id: 2, total: gon.num_tweets},
  {time: "Afternoon", frequency: gon.tweet_times.afternoon, id: 3, total: gon.num_tweets},
  {time: "Evening", frequency: gon.tweet_times.evening, id: 4, total: gon.num_tweets},
@@ -140,6 +140,7 @@ var arcs = vis.selectAll("g.slice")
            .attr("class", "slice");
 arcs.append("path")
        .attr("fill", function(d, i) { return color(i); } )
+       .attr("class", function(d, i) { return 'arc_' + data2[i].id} )
        .attr("d", arc);
 arcs.on('mouseover', function(d, i) {
     var total = d3.sum(data2.map(function(d, i) {
@@ -188,8 +189,7 @@ var legend = vis.selectAll('.legend')
  legend.append('rect')
   .attr('width', legendRectSize)
   .attr('height', legendRectSize)
-  .style('fill', color)
-  .style('stroke', color);
+  .attr("class", function(d, i) { return 'box_' + data2[i].id} );
 legend.append('text')
   .attr('x', legendRectSize + legendSpacing)
   .attr('y', legendRectSize - legendSpacing)
