@@ -89,155 +89,115 @@
   <div id="map"></div>
 </div>
 <script>
-/*
-var margin = {top: 40, right: 20, bottom: 30, left: 40},
-    width = 400 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
 
-var formatPercent = d3.format("");
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(formatPercent);
-
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>" + d.name + ":</strong> <span style='color:red'>" + d.frequency +"</span>";
-  })
-
-var svg = d3.select("#time_graph_container").append("svg")
-    .attr("class", "tweet_times_graph")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg.call(tip);
-
-//colors
-var data = [
-  {name: "Super early morning", frequency: gon.tweet_times.super_early_morning, id: 1},
-  {name: "Morning", frequency: gon.tweet_times.morning, id: 2},
-  {name: "Afternoon", frequency: gon.tweet_times.afternoon, id: 3},
-  {name: "Evening", frequency: gon.tweet_times.evening, id: 4},
-  {name: "Night", frequency: gon.tweet_times.night, id: 5},
-  {name: "Late Night", frequency: gon.tweet_times.late_night, id: 6}
-]
-// The following code was contained in the callback function.
-i = 0;
-x.domain(data.map(function(d) { return i++; }));
-y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
-
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .style('fill', 'white')
-    .call(xAxis);
-
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-    .style('fill', 'white')
-
-  .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", -50)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .style('fill', 'white')
-    .text("Count");
-
-svg.append("text")
-        .attr("x", (width / 2))
-        .attr("y", 0 - (margin.top / 2))
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .style("text-decoration", "underline")
-        .text("Tweet Time Preferences")
-        .style('fill', 'white');
-
-
-svg.selectAll(".bar")
-    .data(data)
-  .enter().append("rect")
-    .attr("class", function(d, i) { return 'bar_' + d.id} )
-    .attr("x", function(d, i) { return x(i++); })
-    .attr("width", x.rangeBand())
-    .attr("y", function(d) { return y(d.frequency); })
-    .attr("height", function(d) { return height - y(d.frequency); })
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide)
-
-function type(d) {
-  d.frequency = +d.frequency;
-  return d;
-}
-*/
+// credit to "http://zeroviscosity.com/d3-js-step-by-step/step-3-adding-a-legend" for this chart
 var margin = {top: 40, right: 45, bottom: 30, left: 40};
 var w = 800,                        //width
-   h = 800,                            //height
-   r = 250,                            //radius
+   h = 1000,                            //height
+   r = 240,                            //radius
    color = d3.scale.category20c();     //builtin range of colors
 
-   var data = [
-     {name: "Super early morning", frequency: gon.tweet_times.super_early_morning, id: 1, total: gon.num_tweets},
-     {name: "Morning", frequency: gon.tweet_times.morning, id: 2, total: gon.num_tweets},
-     {name: "Afternoon", frequency: gon.tweet_times.afternoon, id: 3, total: gon.num_tweets},
-     {name: "Evening", frequency: gon.tweet_times.evening, id: 4, total: gon.num_tweets},
-     {name: "Night", frequency: gon.tweet_times.night, id: 5, total: gon.num_tweets},
-     {name: "Late Night", frequency: gon.tweet_times.late_night, id: 6, total: gon.num_tweets}
-   ]
+var donutWidth = 100;
+var legendRectSize = 18;
+var legendSpacing = 4;
+var data2 = [
+ {time: "Super early morning", frequency: gon.tweet_times.super_early_morning, id: 1, total: gon.num_tweets},
+ {time: "Morning", frequency: gon.tweet_times.morning, id: 2, total: gon.num_tweets},
+ {time: "Afternoon", frequency: gon.tweet_times.afternoon, id: 3, total: gon.num_tweets},
+ {time: "Evening", frequency: gon.tweet_times.evening, id: 4, total: gon.num_tweets},
+ {time: "Night", frequency: gon.tweet_times.night, id: 5, total: gon.num_tweets},
+ {time: "Late Night", frequency: gon.tweet_times.late_night, id: 6, total: gon.num_tweets}
+]
+var tooltip = d3.select('#time_graph_container')
+         .append('div')
+         .attr('class', 'tooltip');
 
-   var vis = d3.select("#time_graph_container")
-       .attr("class", "time_graph")
-       .append("svg")              //create the SVG element inside the <body>
-       .data([data])                   //associate our data with the document
-           .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
-           .attr("height", h)
-       .append("g")                //make a group to hold our pie chart
-           .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
-   var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
-       .outerRadius(r);
-   var pie = d3.layout.pie()           //this will create arc data for us given a list of values
-       .value(function(d) { return d.frequency; });    //we must tell it out to access the value of each element in our data array
-   var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
-       .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
-       .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
-           .append("g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-               .attr("class", "slice");    //allow us to style things in the slices (like text)
-       arcs.append("path")
-               .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
-               .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
-       arcs.append("text")                                     //add a label to each slice
-               .attr("transform", function(d) {                    //set the label's origin to the center of the arc
-               //we have to make sure to set these before calling arc.centroid
-               d.innerRadius = 0;
-               d.outerRadius = r;
-               return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
-           })
-           .attr("text-anchor", "middle")                          //center the text on it's origin
-           .text(function(d, i) { return Math.round((data[i].frequency / data[i].total) * 100) + "%"; });        //get the label from our original data array
+tooltip.append('div')
+   .attr('class', 'label');
+tooltip.append('div')
+   .attr('class', 'count');
+tooltip.append('div')
+   .attr('class', 'percent');
+
+var vis = d3.select("#time_graph_container")
+   .attr("class", "time_graph")
+   .append("svg")
+   .data([data2])
+       .attr("width", w)
+       .attr("height", h)
+   .append("g")
+       .attr("transform", "translate(" + r + "," + r + ")")
+var arc = d3.svg.arc()
+   .innerRadius(r - donutWidth)
+   .outerRadius(r);
+var pie = d3.layout.pie()
+   .value(function(d) { return d.frequency; });
+
+var arcs = vis.selectAll("g.slice")
+   .data(pie)
+   .enter()
+       .append("g")
+           .attr("class", "slice");
+arcs.append("path")
+       .attr("fill", function(d, i) { return color(i); } )
+       .attr("d", arc);
+arcs.on('mouseover', function(d, i) {
+    var total = d3.sum(data2.map(function(d, i) {
+      return data2[i].frequency;
+    }));
+    var percent = Math.round(1000 * data2[i].frequency / data2[i].total) / 10;
+    tooltip.select('.label').html(data2[i].time);
+    tooltip.select('.count').html(data2[i].frequency + " tweets");
+    tooltip.select('.percent').html(percent + '%');
+    tooltip.style('display', 'block');
+  });
+  arcs.on('mouseout', function() {
+    tooltip.style('display', 'none');
+  });
+
+arcs.append("text")
+       .attr("transform", function(d) {
+         d.innerRadius = 0;
+         d.outerRadius = r;
+         return "translate(" + arc.centroid(d) + ")";
+       })
+       .attr("text-anchor", "middle")
+       .text(function(d, i) { return Math.round((data2[i].frequency / data2[i].total) * 100) + "%"; });
  vis.append("text")
-         .attr("x", (w / 25))
-         .attr("y", 0 - (margin.top * 6))
+         .attr("x", (w / 140))
+         .attr("y", 0 - (margin.top * 2))
          .attr("text-anchor", "middle")
          .style("font-size", "16px")
          .style("text-decoration", "underline")
-         .text("Top Words")
+         .text("Tweet Time Preferences")
          .style('fill', 'white');
+
+var legend = vis.selectAll('.legend')
+ .data(color.domain())
+ .enter()
+ .append('g')
+ .attr('class', 'legend')
+ .attr('transform', function(d, i) {
+   var height = legendRectSize + legendSpacing;
+   var offset =  height * color.domain().length / 2;
+   var horz = -2 * legendRectSize;
+   var vert = i * height - offset;
+   return 'translate(' + horz + ',' + vert + ')';
+ });
+
+ legend.append('rect')
+  .attr('width', legendRectSize)
+  .attr('height', legendRectSize)
+  .style('fill', color)
+  .style('stroke', color);
+legend.append('text')
+  .attr('x', legendRectSize + legendSpacing)
+  .attr('y', legendRectSize - legendSpacing)
+  .style('fill', 'white')
+  .text(function(d, i) { return data2[i].time; });
+
+
+
 //top words graph
 var margin2 = {top: 40, right: 20, bottom: 30, left: 40},
     width2 = 400 - margin2.left - margin2.right,
