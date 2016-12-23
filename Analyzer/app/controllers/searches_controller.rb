@@ -137,13 +137,18 @@ class SearchesController < ApplicationController
     #sort the hash by value in descending order
     @top_words = @top_words.sort_by {|k,v| v}.reverse
     @top_words.each do |word, count|
+      top_word = Array.new(2)
       if word_count < 11
+        #set the top_word array's elements to word and it's count
+        top_word[0] = word
+        top_word[1] = count
         #push the word and count tot he top_words_array
-        @top_words_array.push("#{word}: #{count}")
+        @top_words_array.push(top_word)
         #increment the counter
         word_count += 1
       end
     end
+    gon.top_words = @top_words_array
   end
 
   ##################### DICTIONARY/FILTERING TWEETS METHODS ############################
