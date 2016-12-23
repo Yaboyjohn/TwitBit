@@ -303,57 +303,58 @@ function type(d) {
 //setTimeout delay to allow the dummy score to load
 setTimeout(function() {
   (function(d3) {
-            //dummyscore to generate each length of the pie chart arc
-            var dummyscore = document.getElementById('dummyscore').innerHTML;
-            //do everything out of 100
-            //max will be 0.4
-            var bar = (dummyscore / 0.4) * 100;
-            var emptySpace = 100 - bar;
-            'use strict';
-            var dataset = [
-              { label: 'Bar', count: bar },
-              { label: 'Empty Space', count: emptySpace },
+      //dummyscore to generate each length of the pie chart arc
+      var dummyscore = document.getElementById('dummyscore').innerHTML;
+      //do everything out of 100
+      //max will be 0.4
+      var bar = (dummyscore / 0.4) * 100;
+      var emptySpace = 100 - bar;
+      'use strict';
+      var dataset = [
+        { label: 'Bar', count: bar },
+        { label: 'Empty Space', count: emptySpace },
 
-            ];
-            //not responsive; look into this
-            var width = 240;
-            var height = 232;
-            var donutWidth = 20;
-            var radius = Math.min(width, height) / 2;
-            var color = d3.scaleOrdinal(d3.schemeCategory10);
-            var colors = ["white", "#051454"];
-            var svg = d3.select('#chart')
-              .append('svg')
-              .attr('width', width)
-              .attr('height', height)
-              .append('g')
-              .attr('transform', 'translate(' + (width / 2) +
-                ',' + (height / 2) + ')');
+      ];
+      //not responsive; look into this
+      var width = 240;
+      var height = 232;
+      var donutWidth = 20;
+      var radius = Math.min(width, height) / 2;
+      var color = d3.scale.category20c();
 
-            var arc = d3.arc()
-              .innerRadius(radius - donutWidth)
-              .outerRadius(radius);
-            var pie = d3.pie()
-              .value(function(d) { return d.count; })
-              .sort(null);
-            var path = svg.selectAll('path')
-              .data(pie(dataset))
-              .enter()
-              .append('path')
-              .attr('d', arc)
-              .attr('fill', function(d, i) {
-                return colors[i];
-              });
-              path.transition()
-              .duration(2000)
-              .attrTween("d", tweenPie);
+      var colors = ["white", "#051454"];
+      var svg = d3.select('#chart')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate(' + (width / 2) +
+          ',' + (height / 2) + ')');
 
-              //the rotating arc function
-              function tweenPie(b) {
-                var i = d3.interpolate({startAngle: 0, endAngle: 2 * Math.PI}, b);
-                return function(t) { return arc(i(t)); };
-              }
-          })(window.d3);
+      var arc = d3.svg.arc()
+        .innerRadius(radius - donutWidth)
+        .outerRadius(radius);
+      var pie = d3.layout.pie()
+        .value(function(d) { return d.count; })
+        .sort(null);
+      var path = svg.selectAll('path')
+        .data(pie(dataset))
+        .enter()
+        .append('path')
+        .attr('d', arc)
+        .attr('fill', function(d, i) {
+          return colors[i];
+        });
+        path.transition()
+        .duration(2000)
+        .attrTween("d", tweenPie);
+
+        //the rotating arc function
+        function tweenPie(b) {
+          var i = d3.interpolate({startAngle: 0, endAngle: 2 * Math.PI}, b);
+          return function(t) { return arc(i(t)); };
+        }
+    })(window.d3);
 }, 800);
 
 $(document).ready(function() {
