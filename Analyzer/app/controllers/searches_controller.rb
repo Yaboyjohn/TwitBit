@@ -70,8 +70,10 @@ class SearchesController < ApplicationController
     #the array consisting of an array of arrays of arrays
     #the first element is an array of 4 arrays (the four coordinates pairs)
     #each element of this inner array is a coordinate pair - 4 in total
+    $total_tweets = 0
     @locations = []
     @tweets.each do |tweet|
+      $total_tweets += 1
       #get the tweet created at time and convert it to PACIFIC time (for now)
       tweet_time = tweet.created_at.in_time_zone('America/Los_Angeles').strftime("%H").to_i
       #this gets all the info about the tweet
@@ -103,9 +105,9 @@ class SearchesController < ApplicationController
         #time is between 1 am and 3 am
         $tweet_time_preference[:late_night] += 1
       end
+      gon.num_tweets = $total_tweets
       #@tweet_time_preference = @tweet_time_preference.sort_by {|k,v| v}.reverse
       gon.tweet_times = $tweet_time_preference
-
       #pass the locations array to the js file (array of arrays of arrays)
       gon.locations = @locations
       text = clean_tweet(tweet.text) #get the text of each tweet and remove emojis/hashtags etc

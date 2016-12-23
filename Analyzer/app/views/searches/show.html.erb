@@ -89,7 +89,7 @@
   <div id="map"></div>
 </div>
 <script>
-
+/*
 var margin = {top: 40, right: 20, bottom: 30, left: 40},
     width = 400 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -185,7 +185,59 @@ function type(d) {
   d.frequency = +d.frequency;
   return d;
 }
+*/
+var margin = {top: 40, right: 45, bottom: 30, left: 40};
+var w = 800,                        //width
+   h = 800,                            //height
+   r = 250,                            //radius
+   color = d3.scale.category20c();     //builtin range of colors
 
+   var data = [
+     {name: "Super early morning", frequency: gon.tweet_times.super_early_morning, id: 1, total: gon.num_tweets},
+     {name: "Morning", frequency: gon.tweet_times.morning, id: 2, total: gon.num_tweets},
+     {name: "Afternoon", frequency: gon.tweet_times.afternoon, id: 3, total: gon.num_tweets},
+     {name: "Evening", frequency: gon.tweet_times.evening, id: 4, total: gon.num_tweets},
+     {name: "Night", frequency: gon.tweet_times.night, id: 5, total: gon.num_tweets},
+     {name: "Late Night", frequency: gon.tweet_times.late_night, id: 6, total: gon.num_tweets}
+   ]
+
+   var vis = d3.select("#time_graph_container")
+       .attr("class", "time_graph")
+       .append("svg")              //create the SVG element inside the <body>
+       .data([data])                   //associate our data with the document
+           .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+           .attr("height", h)
+       .append("g")                //make a group to hold our pie chart
+           .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+   var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+       .outerRadius(r);
+   var pie = d3.layout.pie()           //this will create arc data for us given a list of values
+       .value(function(d) { return d.frequency; });    //we must tell it out to access the value of each element in our data array
+   var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+       .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
+       .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
+           .append("g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+               .attr("class", "slice");    //allow us to style things in the slices (like text)
+       arcs.append("path")
+               .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
+               .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+       arcs.append("text")                                     //add a label to each slice
+               .attr("transform", function(d) {                    //set the label's origin to the center of the arc
+               //we have to make sure to set these before calling arc.centroid
+               d.innerRadius = 0;
+               d.outerRadius = r;
+               return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
+           })
+           .attr("text-anchor", "middle")                          //center the text on it's origin
+           .text(function(d, i) { return Math.round((data[i].frequency / data[i].total) * 100) + "%"; });        //get the label from our original data array
+ vis.append("text")
+         .attr("x", (w / 25))
+         .attr("y", 0 - (margin.top * 6))
+         .attr("text-anchor", "middle")
+         .style("font-size", "16px")
+         .style("text-decoration", "underline")
+         .text("Top Words")
+         .style('fill', 'white');
 //top words graph
 var margin2 = {top: 40, right: 20, bottom: 30, left: 40},
     width2 = 400 - margin2.left - margin2.right,
@@ -209,12 +261,11 @@ var yAxis2 = d3.svg.axis()
     .tickFormat(formatPercent);
 
 var tip2 = d3.tip()
-  .attr('class', 'd3-tip2')
+  .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<strong></strong> <span style='color:red'>" + d.frequency +"</span>";
+    return "<strong>" + d.name + ":</strong> <span style='color:red'>" + d.frequency +"</span>";
   })
-
 var svg2 = d3.select("#top_words_graph_container").append("svg")
     .attr("class", "tweet_times_graph")
     .attr("width", width2 + margin2.left + margin2.right)
@@ -279,8 +330,8 @@ svg2.selectAll(".bar")
     .attr("width", x2.rangeBand())
     .attr("y", function(d) { return y2(d.frequency); })
     .attr("height", function(d) { return height2 - y2(d.frequency); })
-    .on('mouseover', tip.show)
-    .on('mouseout', tip.hide)
+    .on('mouseover', tip2.show)
+    .on('mouseout', tip2.hide)
 
 function type(d) {
   d.frequency = +d.frequency;
