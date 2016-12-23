@@ -92,10 +92,10 @@
 
 // credit to "http://zeroviscosity.com/d3-js-step-by-step/step-3-adding-a-legend" for this chart
 var margin = {top: 40, right: 45, bottom: 30, left: 40};
-var w = 800,                        //width
-   h = 1000,                            //height
-   r = 240,                            //radius
-   color = d3.scale.category20c();     //builtin range of colors
+var w = 800,
+   h = 1000,
+   r = 240,
+   color = d3.scale.category20c();
 
 var donutWidth = 100;
 var legendRectSize = 18;
@@ -108,28 +108,31 @@ var data2 = [
  {time: "Night", frequency: gon.tweet_times.night, id: 5, total: gon.num_tweets},
  {time: "Late Night", frequency: gon.tweet_times.late_night, id: 6, total: gon.num_tweets}
 ]
+
 var tooltip = d3.select('#time_graph_container')
-         .append('div')
-         .attr('class', 'tooltip');
+ .append('div')
+ .attr('class', 'tooltip');
 
 tooltip.append('div')
-   .attr('class', 'label');
+ .attr('class', 'label');
 tooltip.append('div')
-   .attr('class', 'count');
+ .attr('class', 'count');
 tooltip.append('div')
-   .attr('class', 'percent');
+ .attr('class', 'percent');
 
 var vis = d3.select("#time_graph_container")
-   .attr("class", "time_graph")
-   .append("svg")
-   .data([data2])
-       .attr("width", w)
-       .attr("height", h)
-   .append("g")
-       .attr("transform", "translate(" + r + "," + r + ")")
+ .attr("class", "time_graph")
+ .append("svg")
+ .data([data2])
+   .attr("width", w)
+   .attr("height", h)
+ .append("g")
+   .attr("transform", "translate(" + r + "," + r + ")")
+
 var arc = d3.svg.arc()
    .innerRadius(r - donutWidth)
    .outerRadius(r);
+
 var pie = d3.layout.pie()
    .value(function(d) { return d.frequency; });
 
@@ -139,9 +142,9 @@ var arcs = vis.selectAll("g.slice")
        .append("g")
            .attr("class", "slice");
 arcs.append("path")
-       .attr("fill", function(d, i) { return color(i); } )
-       .attr("class", function(d, i) { return 'arc_' + data2[i].id} )
-       .attr("d", arc);
+   .attr("fill", function(d, i) { return color(i); } )
+   .attr("class", function(d, i) { return 'arc_' + data2[i].id} )
+   .attr("d", arc);
 arcs.on('mouseover', function(d, i) {
     var total = d3.sum(data2.map(function(d, i) {
       return data2[i].frequency;
@@ -151,42 +154,43 @@ arcs.on('mouseover', function(d, i) {
     tooltip.select('.count').html(data2[i].frequency + " tweets");
     tooltip.select('.percent').html(percent + '%');
     tooltip.style('display', 'block');
-  });
-  arcs.on('mouseout', function() {
-    tooltip.style('display', 'none');
-  });
+});
+arcs.on('mouseout', function() {
+  tooltip.style('display', 'none');
+});
 
 arcs.append("text")
-       .attr("transform", function(d) {
-         d.innerRadius = 0;
-         d.outerRadius = r;
-         return "translate(" + arc.centroid(d) + ")";
-       })
-       .attr("text-anchor", "middle")
-       .text(function(d, i) { return Math.round((data2[i].frequency / data2[i].total) * 100) + "%"; });
- vis.append("text")
-         .attr("x", (w / 140))
-         .attr("y", 0 - (margin.top * 2))
-         .attr("text-anchor", "middle")
-         .style("font-size", "16px")
-         .style("text-decoration", "underline")
-         .text("Tweet Time Preferences")
-         .style('fill', 'white');
+   .attr("transform", function(d) {
+     d.innerRadius = 0;
+     d.outerRadius = r;
+     return "translate(" + arc.centroid(d) + ")";
+   })
+   .attr("text-anchor", "middle")
+   .text(function(d, i) { return Math.round((data2[i].frequency / data2[i].total) * 100) + "%"; });
+
+vis.append("text")
+   .attr("x", (w / 140))
+   .attr("y", 0 - (margin.top * 2))
+   .attr("text-anchor", "middle")
+   .style("font-size", "16px")
+   .style("text-decoration", "underline")
+   .text("Tweet Time Preferences")
+   .style('fill', 'white');
 
 var legend = vis.selectAll('.legend')
- .data(color.domain())
- .enter()
- .append('g')
- .attr('class', 'legend')
- .attr('transform', function(d, i) {
+   .data(color.domain())
+   .enter()
+   .append('g')
+   .attr('class', 'legend')
+   .attr('transform', function(d, i) {
    var height = legendRectSize + legendSpacing;
    var offset =  height * color.domain().length / 2;
    var horz = -2 * legendRectSize;
    var vert = i * height - offset;
    return 'translate(' + horz + ',' + vert + ')';
- });
+});
 
- legend.append('rect')
+legend.append('rect')
   .attr('width', legendRectSize)
   .attr('height', legendRectSize)
   .attr("class", function(d, i) { return 'box_' + data2[i].id} );
@@ -196,29 +200,27 @@ legend.append('text')
   .style('fill', 'white')
   .text(function(d, i) { return data2[i].time; });
 
-
-
 //top words graph
 var margin2 = {top: 40, right: 20, bottom: 30, left: 40},
-    width2 = 400 - margin2.left - margin2.right,
-    height2 = 500 - margin2.top - margin2.bottom;
+  width2 = 400 - margin2.left - margin2.right,
+  height2 = 500 - margin2.top - margin2.bottom;
 
 var formatPercent = d3.format("");
 
 var x2 = d3.scale.ordinal()
-    .rangeRoundBands([0, width2], .1);
+  .rangeRoundBands([0, width2], .1);
 
 var y2 = d3.scale.linear()
-    .range([height2, 0]);
+  .range([height2, 0]);
 
 var xAxis2 = d3.svg.axis()
-    .scale(x2)
-    .orient("bottom");
+  .scale(x2)
+  .orient("bottom");
 
 var yAxis2 = d3.svg.axis()
-    .scale(y2)
-    .orient("left")
-    .tickFormat(formatPercent);
+  .scale(y2)
+  .orient("left")
+  .tickFormat(formatPercent);
 
 var tip2 = d3.tip()
   .attr('class', 'd3-tip')
@@ -227,9 +229,9 @@ var tip2 = d3.tip()
     return "<strong>" + d.name + ":</strong> <span style='color:red'>" + d.frequency +"</span>";
   })
 var svg2 = d3.select("#top_words_graph_container").append("svg")
-    .attr("class", "tweet_times_graph")
-    .attr("width", width2 + margin2.left + margin2.right)
-    .attr("height", height2 + margin2.top + margin2.bottom)
+  .attr("class", "tweet_times_graph")
+  .attr("width", width2 + margin2.left + margin2.right)
+  .attr("height", height2 + margin2.top + margin2.bottom)
   .append("g")
     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
@@ -254,16 +256,15 @@ x2.domain(data.map(function(d) { return d.name; }));
 y2.domain([0, d3.max(data, function(d) { return d.frequency; })]);
 
 svg2.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height2 + ")")
-    .style('fill', 'white')
-    .call(xAxis2);
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height2 + ")")
+  .style('fill', 'white')
+  .call(xAxis2);
 
 svg2.append("g")
-    .attr("class", "y axis")
-    .call(yAxis2)
-    .style('fill', 'white')
-
+  .attr("class", "y axis")
+  .call(yAxis2)
+  .style('fill', 'white')
   .append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", -50)
@@ -273,25 +274,25 @@ svg2.append("g")
     .text("Count");
 
 svg2.append("text")
-        .attr("x", (width2 / 2))
-        .attr("y", 0 - (margin2.top / 2))
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .style("text-decoration", "underline")
-        .text("Top Words")
-        .style('fill', 'white');
+  .attr("x", (width2 / 2))
+  .attr("y", 0 - (margin2.top / 2))
+  .attr("text-anchor", "middle")
+  .style("font-size", "16px")
+  .style("text-decoration", "underline")
+  .text("Top Words")
+  .style('fill', 'white');
 
 
 svg2.selectAll(".bar")
-    .data(data)
+  .data(data)
   .enter().append("rect")
-    .attr("class", function(d, i) { return 'bar_' + d.id} )
-    .attr("x", function(d) { return x2(d.name); })
-    .attr("width", x2.rangeBand())
-    .attr("y", function(d) { return y2(d.frequency); })
-    .attr("height", function(d) { return height2 - y2(d.frequency); })
-    .on('mouseover', tip2.show)
-    .on('mouseout', tip2.hide)
+  .attr("class", function(d, i) { return 'bar_' + d.id} )
+  .attr("x", function(d) { return x2(d.name); })
+  .attr("width", x2.rangeBand())
+  .attr("y", function(d) { return y2(d.frequency); })
+  .attr("height", function(d) { return height2 - y2(d.frequency); })
+  .on('mouseover', tip2.show)
+  .on('mouseout', tip2.hide)
 
 function type(d) {
   d.frequency = +d.frequency;
