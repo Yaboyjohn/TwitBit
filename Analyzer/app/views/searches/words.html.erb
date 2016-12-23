@@ -1,0 +1,23 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+</head>
+<%= link_to 'Back', search_path, id: "back", :method => :get %>
+<p id="num_errors">Number of errors: <%= $misspelled_words.length %> </p>
+<p id="total_word_count">Total word count: <%= $total_word_count %></p>
+<table id="misspelled_words_table">
+  <th> Misspelled Words </th>
+    <% if $misspelled_words.length >= 60 %>
+      <% @first_20 = $misspelled_words[0..19] %>
+      <% @first_20.each do |word| %>
+        <tr>
+          <td class="result-name"><%= word %></td>
+        </tr>
+      <% end %>
+      <% @next_20 = $misspelled_words[20..39] %>
+      <% @next_20.each do |word| %>
+        <tr>
+          <td class="result-name"><%= word %></td>
+        </tr>
+      <% end %>
+    <% end %>
+</table>

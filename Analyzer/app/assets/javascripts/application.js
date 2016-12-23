@@ -159,7 +159,7 @@ function initMap() {
       dataPage.style.backgroundImage = 'url(http://img.wallpaperfolder.com/f/70F554D65D6D/sky-shinny-moon-night.jpg)';
     }
     else {
-      dataPage.style.backgroundImage = 'url(http://orig08.deviantart.net/82fa/f/2013/049/c/0/night_stars_by_vronde-d5vdak6.png)';
+      //dataPage.style.backgroundImage = 'url(http://orig08.deviantart.net/82fa/f/2013/049/c/0/night_stars_by_vronde-d5vdak6.png)';
     }
 
     //function to create the counter generating the score
