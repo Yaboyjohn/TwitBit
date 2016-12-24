@@ -43,7 +43,7 @@ class SearchesController < ApplicationController
       config.access_token = "750506018744832000-rLtS7VCeOW59PSGpn5F27zNubaYj153"
       config.access_token_secret = "JbMM8fDX4fO6Izw0vKCCAO26ygHuKfQoPRiAdLyEF8yG1"
     end
-
+    $mentions = Hash.new(0)
     #instantiate the hash to track top word usage_count_array
     @top_words = Hash.new(0)
     #the string we will add all words to
@@ -139,19 +139,32 @@ class SearchesController < ApplicationController
     #sort the hash by value in descending order
     @top_words = @top_words.sort_by {|k,v| v}.reverse
     @top_words.each do |word, count|
-      top_word = Array.new(2)
-      if word_count < 11
-        #set the top_word array's elements to word and it's count
-        top_word[0] = word
-        top_word[1] = count
-        #push the word and count tot he top_words_array
-        @top_words_array.push(top_word)
-        #increment the counter
-        word_count += 1
+      converted_word = word.to_s
+      if not filter(converted_word)
+        top_word = Array.new(2)
+        if word_count < 11
+          #set the top_word array's elements to word and it's count
+          top_word[0] = word
+          top_word[1] = count
+          #push the word and count tot he top_words_array
+          @top_words_array.push(top_word)
+          #increment the counter
+          word_count += 1
+        end
       end
     end
     gon.top_words = @top_words_array
+    $mentions_array = []
+    $mentions.each do |username, count|
+      mention = Array.new(2)
+      mention[0] = username
+      mention[1] = count
+      $mentions_array.push(mention)
+    end
+    gon.mentions = $mentions_array
   end
+
+
 
   ##################### DICTIONARY/FILTERING TWEETS METHODS ############################
   def remove_emojis(word)
@@ -201,8 +214,11 @@ class SearchesController < ApplicationController
   end
 
   def mention_check(word) #you should pass in only one word at at time
+    word_copy = word
     letters = word.split("") #this is an array of letters now
     if letters.include? '@'
+      username = word_copy.to_sym
+      $mentions[username] += 1
       return true
     else
       return false
@@ -313,6 +329,19 @@ class SearchesController < ApplicationController
       word = word[1..length_of_word]
     end
     return word
+  end
+
+  def filter(word)
+    common = [
+      "the", "on", "it", "to", "and", "in", "is", "a", "at"
+    ]
+    if common.include? word
+      return true
+    elsif word.length == 1 && word != "I"
+      return true
+    else
+      return false
+    end
   end
 
   def clean_tweet(tweet) #pass in a tweet and refine it: remove emojis, get rid of non letters
