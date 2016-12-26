@@ -172,18 +172,24 @@ function initMap() {
     var first_place_pic = document.getElementById("first-place-pic");
     var first_url = first_friend_object[2].replace(/_normal/i, "");
     first_place_pic.style.backgroundImage = 'url('+first_url+')';
+    var first_mentions = document.getElementById("first-mentions");
+    first_mentions.innerHTML = first_friend_object[1] + " interactions";
 
     var second_place_name = document.getElementById("second-place-name");
     second_place_name.innerHTML = second_friend_object[0];
     var second_url = second_friend_object[2].replace(/_normal/i, "");
     var second_place_pic = document.getElementById("second-place-pic");
     second_place_pic.style.backgroundImage = 'url('+second_url+')';
+    var second_mentions = document.getElementById("second-mentions");
+    second_mentions.innerHTML = second_friend_object[1] + " interactions";
 
     var third_place_name = document.getElementById("third-place-name");
     third_place_name.innerHTML = third_friend_object[0];
     var third_url = third_friend_object[2].replace(/_normal/i, "");
     var third_place_pic = document.getElementById("third-place-pic");
     third_place_pic.style.backgroundImage = 'url('+third_url+')';
+    var third_mentions = document.getElementById("third-mentions");
+    third_mentions.innerHTML = third_friend_object[1] + " interactions";
 
     //function to create the counter generating the score
     jQuery.fn.extend({

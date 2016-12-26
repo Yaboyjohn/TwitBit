@@ -6,9 +6,11 @@
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yellowtail">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Comfortaa">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Hind">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Kalam">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Sriracha">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Scope+One">
+  <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
   <style>
@@ -97,30 +99,37 @@
       <div id="first-place-pic"></div>
     </div>
     <a href="http://twitter.com/<%= $mentions_array.at(0).at(0) %>" style="text-decoration: none; color: black">
-      <h2 id="first-place-name" class="place-name">dummy</h2>
+      <h2 id="first-place-name" class="place-name"></h2>
     </a>
+    <h1 class="place-number" id="first-place">1st</h1>
+    <h5 class="mentions-number" id="first-mentions"></h5>
   </div>
   <div class="second-place place-div">
     <div class="place-pic-container">
       <div id="second-place-pic"></div>
     </div>
     <a href="http://twitter.com/<%= $mentions_array.at(1).at(0) %>" style="text-decoration: none; color: black">
-      <h2 id="second-place-name" class="place-name">dummy</h2>
-    </a>  </div>
+      <h2 id="second-place-name" class="place-name"></h2>
+    </a>
+    <h1 class="place-number" id="second-place">2nd</h1>
+    <h5 class="mentions-number" id="second-mentions"></h5>
+  </div>
   <div class="third-place place-div">
     <div class="third-place-pic-container">
       <div id="third-place-pic"></div>
     </div>
     <a href="http://twitter.com/<%= $mentions_array.at(2).at(0) %>" style="text-decoration: none; color: black">
-      <h2 id="third-place-name" class="place-name">dummy</h2>
-    </a>  </div>
+      <h2 id="third-place-name" class="place-name"></h2>
+    </a>
+    <h1 class="place-number" id="third-place">3rd</h1>
+    <h5 class="mentions-number" id="third-mentions"></h5>
+  </div>
   <div class="first-arrow-down1"></div>
   <div class="first-arrow-down2"></div>
   <div class="second-arrow-down1"></div>
   <div class="second-arrow-down2"></div>
   <div class="third-arrow-down1"></div>
   <div class="third-arrow-down2"></div>
-
 </div>
 <script>
 
