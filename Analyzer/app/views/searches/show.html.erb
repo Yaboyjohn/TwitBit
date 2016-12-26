@@ -1,8 +1,5 @@
 <head>
-  <script async defer
-    src=
-    "https://maps.googleapis.com/maps/api/js?key=AIzaSyBmCWMVKVJvNyUrCwP6yIwLApM9qFVpu2c&libraries=places,drawing,geometry&v=3&callback=initMap">
-  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmCWMVKVJvNyUrCwP6yIwLApM9qFVpu2c&libraries=places,drawing,geometry&v=3&callback=initMap"></script>
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
   <META HTTP-EQUIV="Expires" CONTENT="-1">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans">
@@ -23,10 +20,13 @@
       background-image: none !important;
       font-family: Lato;
     }
+
   </style>
 </head>
 <!-- The Title of the show view -->
-<h2 id="twitbit-title"> Your Twitbit Score </h2>
+<h2 id="twitbit-title">
+  Your Twitbit Score
+</h2>
 <!-- Container div for the twitbit score section -->
 <div id="show-page-container">
   <!-- The score/rotating graph side of the section -->
@@ -54,15 +54,16 @@
     <p id="comparison-intro">You fall under the category of...</p>
   </div>
   <h2 id="comparison-category">TEXT</h2>
-  <p id="twitbit-information"> What is this? </p>
+  <p id="twitbit-information">
+    What is this?
+  </p>
 </div>
 <!-- div for the info that pops up from clicking "what's this?" -->
 <div id="extra-info-div">
   <h1 id="extra-info-close-button">X</h1>
   <h2 id='extra-info-title'>What exactly is my Twitbit score?</h2>
-  <p id='extra-info'>We're glad you asked. TwitBit takes into account your most recent
-    200 tweets (not including retweets) and analyzes your word choice and spelling. This then generates a score,
-    which places you under a certain category of people who share relatively the same score as you.
+  <p id='extra-info'>We're glad you asked. TwitBit takes into account your most recent 200 tweets (not including retweets) and analyzes your word choice and spelling. This then generates a score, which places you under a certain category of people who
+    share relatively the same score as you.
   </p>
   <%= link_to 'To see more click here>>>', searches_words_path, id: "see-more-link" %>
 </div>
@@ -70,306 +71,337 @@
 <div id="options-container"></div>
 <div id="options-box">
   <ul id="options-list">
-    <li class="options" id="about">TwitBit Score</li></a>
-    <li class="options" id="projects">Data</li>
-    <li class="options" id="hot-spots">Hot Spots</li>
-    <li class="options" id="contact">Best Friends</li>
-    <li class="options"><%= link_to 'Search', new_search_path, id: "back-button" %></li>
-    <li class="options"><%= link_to 'History', searches_path, id: "back-button" %></li>
-    </ul>
+    <li class="options" id="about">TwitBit Score</li>
+  </a>
+  <li class="options" id="projects">Data</li>
+  <li class="options" id="hot-spots">Hot Spots</li>
+  <li class="options" id="contact">Best Friends</li>
+  <li class="options"><%= link_to 'Search', new_search_path, id: "back-button" %></li>
+  <li class="options"><%= link_to 'History', searches_path, id: "back-button" %></li>
+</ul>
 </div>
 <!-- start of the data section; placeholder for now -->
-  <div id="data-page">
-    <div id="time_graph_container"></div>
-    <div id="top_words_graph_container"></div>
-  </div>
+<div id="data-page">
+  <div id="time_graph_container"></div>
+  <div id="top_words_graph_container"></div>
+</div>
 <div id="map-page">
-<!-- the google map-->
-<h2 id="hotspots-title">🔥 MY HOTSPOTS 🔥</h2>
+  <!-- the google map-->
+  <h2 id="hotspots-title">🔥 MY HOTSPOTS 🔥</h2>
   <div id="map"></div>
+</div>
+<div id="friends_page">
+  <h2 id="friends_title">Your Best Friends</h2>
+  <div class="first-place place-div">
+    <div class="place-pic-container">
+      <div id="first-place-pic"></div>
+    </div>
+    <a href="http://twitter.com/<%= $mentions_array.at(0).at(0) %>" style="text-decoration: none; color: black">
+      <h2 id="first-place-name" class="place-name">dummy</h2>
+    </a>
+  </div>
+  <div class="second-place place-div">
+    <div class="place-pic-container">
+      <div id="second-place-pic"></div>
+    </div>
+    <a href="http://twitter.com/<%= $mentions_array.at(1).at(0) %>" style="text-decoration: none; color: black">
+      <h2 id="second-place-name" class="place-name">dummy</h2>
+    </a>  </div>
+  <div class="third-place place-div">
+    <div class="third-place-pic-container">
+      <div id="third-place-pic"></div>
+    </div>
+    <a href="http://twitter.com/<%= $mentions_array.at(2).at(0) %>" style="text-decoration: none; color: black">
+      <h2 id="third-place-name" class="place-name">dummy</h2>
+    </a>  </div>
+  <div class="first-arrow-down1"></div>
+  <div class="first-arrow-down2"></div>
+  <div class="second-arrow-down1"></div>
+  <div class="second-arrow-down2"></div>
+  <div class="third-arrow-down1"></div>
+  <div class="third-arrow-down2"></div>
+
 </div>
 <script>
 
 // credit to "http://zeroviscosity.com/d3-js-step-by-step/step-3-adding-a-legend" for this chart
-for (index  = 0; index < gon.mentions.length; index++) {
+for (index = 0; index < gon.mentions.length; index++) {
   console.log(gon.mentions[index]);
 }
-var margin = {top: 40, right: 45, bottom: 30, left: 40};
+
+var margin = {
+  top: 40,
+  right: 45,
+  bottom: 30,
+  left: 40
+};
+
 var w = 800,
-   h = 1000,
-   r = 240,
-   color = d3.scale.category20c();
+  h = 1000,
+  r = 240,
+  color = d3.scale.category20c();
 
 var donutWidth = 100;
 var legendRectSize = 18;
 var legendSpacing = 4;
 var data2 = [
- {time: "Early Morning", frequency: gon.tweet_times.super_early_morning, id: 1, total: gon.num_tweets},
- {time: "Morning", frequency: gon.tweet_times.morning, id: 2, total: gon.num_tweets},
- {time: "Afternoon", frequency: gon.tweet_times.afternoon, id: 3, total: gon.num_tweets},
- {time: "Evening", frequency: gon.tweet_times.evening, id: 4, total: gon.num_tweets},
- {time: "Night", frequency: gon.tweet_times.night, id: 5, total: gon.num_tweets},
- {time: "Late Night", frequency: gon.tweet_times.late_night, id: 6, total: gon.num_tweets}
+  {
+    time: "Early Morning",
+    frequency: gon.tweet_times.super_early_morning,
+    id: 1,
+    total: gon.num_tweets
+  }, {
+    time: "Morning",
+    frequency: gon.tweet_times.morning,
+    id: 2,
+    total: gon.num_tweets
+  }, {
+    time: "Afternoon",
+    frequency: gon.tweet_times.afternoon,
+    id: 3,
+    total: gon.num_tweets
+  }, {
+    time: "Evening",
+    frequency: gon.tweet_times.evening,
+    id: 4,
+    total: gon.num_tweets
+  }, {
+    time: "Night",
+    frequency: gon.tweet_times.night,
+    id: 5,
+    total: gon.num_tweets
+  }, {
+    time: "Late Night",
+    frequency: gon.tweet_times.late_night,
+    id: 6,
+    total: gon.num_tweets
+  }
 ]
 
-var tooltip = d3.select('#time_graph_container')
- .append('div')
- .attr('class', 'tooltip');
+var tooltip = d3.select('#time_graph_container').append('div').attr('class', 'tooltip');
 
-tooltip.append('div')
- .attr('class', 'label');
-tooltip.append('div')
- .attr('class', 'count');
-tooltip.append('div')
- .attr('class', 'percent');
+tooltip.append('div').attr('class', 'label');
+tooltip.append('div').attr('class', 'count');
+tooltip.append('div').attr('class', 'percent');
 
-var vis = d3.select("#time_graph_container")
- .attr("class", "time_graph")
- .append("svg")
- .data([data2])
-   .attr("width", w)
-   .attr("height", h)
- .append("g")
-   .attr("transform", "translate(" + r + "," + r + ")")
+var vis = d3.select("#time_graph_container").attr("class", "time_graph").append("svg").data([data2]).attr("width", w).attr("height", h).append("g").attr("transform", "translate(" + r + "," + r + ")")
 
-var arc = d3.svg.arc()
-   .innerRadius(r - donutWidth)
-   .outerRadius(r);
+var arc = d3.svg.arc().innerRadius(r - donutWidth).outerRadius(r);
 
-var pie = d3.layout.pie()
-   .value(function(d) { return d.frequency; });
-
-var arcs = vis.selectAll("g.slice")
-   .data(pie)
-   .enter()
-       .append("g")
-           .attr("class", "slice");
-arcs.append("path")
-   .attr("fill", function(d, i) { return color(i); } )
-   .attr("class", function(d, i) { return 'arc_' + data2[i].id} )
-   .attr("d", arc);
-arcs.on('mouseover', function(d, i) {
-    var total = d3.sum(data2.map(function(d, i) {
-      return data2[i].frequency;
-    }));
-    var percent = Math.round(1000 * data2[i].frequency / data2[i].total) / 10;
-    tooltip.select('.label').html(data2[i].time);
-    tooltip.select('.count').html(data2[i].frequency + " tweets");
-    tooltip.select('.percent').html(percent + '%');
-    tooltip.style('display', 'block');
+var pie = d3.layout.pie().value(function (d) {
+  return d.frequency;
 });
-arcs.on('mouseout', function() {
+
+var arcs = vis.selectAll("g.slice").data(pie).enter().append("g").attr("class", "slice");
+arcs.append("path").attr("fill", function (d, i) {
+  return color(i);
+}).attr("class", function (d, i) {
+  return 'arc_' + data2[i].id
+}).attr("d", arc);
+arcs.on('mouseover', function (d, i) {
+  var total = d3.sum(data2.map(function (d, i) {
+    return data2[i].frequency;
+  }));
+  var percent = Math.round(1000 * data2[i].frequency / data2[i].total) / 10;
+  tooltip.select('.label').html(data2[i].time);
+  tooltip.select('.count').html(data2[i].frequency + " tweets");
+  tooltip.select('.percent').html(percent + '%');
+  tooltip.style('display', 'block');
+});
+arcs.on('mouseout', function () {
   tooltip.style('display', 'none');
 });
 
-arcs.append("text")
-   .attr("transform", function(d) {
-     d.innerRadius = 0;
-     d.outerRadius = r;
-     return "translate(" + arc.centroid(d) + ")";
-   })
-   .attr("text-anchor", "middle")
-   .text(function(d, i) { return Math.round((data2[i].frequency / data2[i].total) * 100) + "%"; });
-
-vis.append("text")
-   .attr("x", (w / 140))
-   .attr("y", 0 - (margin.top * 2))
-   .attr("text-anchor", "middle")
-   .style("font-size", "16px")
-   .style("text-decoration", "underline")
-   .text("Tweet Time Preferences")
-   .style('fill', 'white');
-
-var legend = vis.selectAll('.legend')
-   .data(color.domain())
-   .enter()
-   .append('g')
-   .attr('class', 'legend')
-   .attr('transform', function(d, i) {
-   var height = legendRectSize + legendSpacing;
-   var offset =  height * color.domain().length / 2;
-   var horz = -2 * legendRectSize;
-   var vert = i * height - offset;
-   return 'translate(' + horz + ',' + vert + ')';
+arcs.append("text").attr("transform", function (d) {
+  d.innerRadius = 0;
+  d.outerRadius = r;
+  return "translate(" + arc.centroid(d) + ")";
+}).attr("text-anchor", "middle").text(function (d, i) {
+  return Math.round((data2[i].frequency / data2[i].total) * 100) + "%";
 });
 
-legend.append('rect')
-  .attr('width', legendRectSize)
-  .attr('height', legendRectSize)
-  .attr("class", function(d, i) { return 'box_' + data2[i].id} );
-legend.append('text')
-  .attr('x', legendRectSize + legendSpacing)
-  .attr('y', legendRectSize - legendSpacing)
-  .style('fill', 'white')
-  .text(function(d, i) { return data2[i].time; });
+vis.append("text").attr("x", (w / 140)).attr("y", 0 - (margin.top * 2)).attr("text-anchor", "middle").style("font-size", "16px").style("text-decoration", "underline").text("Tweet Time Preferences").style('fill', 'white');
+
+var legend = vis.selectAll('.legend').data(color.domain()).enter().append('g').attr('class', 'legend').attr('transform', function (d, i) {
+  var height = legendRectSize + legendSpacing;
+  var offset = height * color.domain().length / 2;
+  var horz = -2 * legendRectSize;
+  var vert = i * height - offset;
+  return 'translate(' + horz + ',' + vert + ')';
+});
+
+legend.append('rect').attr('width', legendRectSize).attr('height', legendRectSize).attr("class", function (d, i) {
+  return 'box_' + data2[i].id
+});
+legend.append('text').attr('x', legendRectSize + legendSpacing).attr('y', legendRectSize - legendSpacing).style('fill', 'white').text(function (d, i) {
+  return data2[i].time;
+});
 
 //top words graph
-var margin2 = {top: 40, right: 20, bottom: 30, left: 40},
+var margin2 = {
+    top: 40,
+    right: 20,
+    bottom: 30,
+    left: 40
+  },
   width2 = 400 - margin2.left - margin2.right,
   height2 = 500 - margin2.top - margin2.bottom;
 
 var formatPercent = d3.format("");
 
-var x2 = d3.scale.ordinal()
-  .rangeRoundBands([0, width2], .1);
+var x2 = d3.scale.ordinal().rangeRoundBands([
+  0, width2
+], .1);
 
-var y2 = d3.scale.linear()
-  .range([height2, 0]);
+var y2 = d3.scale.linear().range([height2, 0]);
 
-var xAxis2 = d3.svg.axis()
-  .scale(x2)
-  .orient("bottom");
+var xAxis2 = d3.svg.axis().scale(x2).orient("bottom");
 
-var yAxis2 = d3.svg.axis()
-  .scale(y2)
-  .orient("left")
-  .tickFormat(formatPercent);
+var yAxis2 = d3.svg.axis().scale(y2).orient("left").tickFormat(formatPercent);
 
-var tip2 = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>" + d.name + ":</strong> <span style='color:red'>" + d.frequency +"</span>";
-  })
-var svg2 = d3.select("#top_words_graph_container").append("svg")
-  .attr("class", "tweet_times_graph")
-  .attr("width", width2 + margin2.left + margin2.right)
-  .attr("height", height2 + margin2.top + margin2.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+var tip2 = d3.tip().attr('class', 'd3-tip').offset([-10, 0]).html(function (d) {
+  return "<strong>" + d.name + ":</strong> <span style='color:red'>" + d.frequency + "</span>";
+})
+var svg2 = d3.select("#top_words_graph_container").append("svg").attr("class", "tweet_times_graph").attr("width", width2 + margin2.left + margin2.right).attr("height", height2 + margin2.top + margin2.bottom).append("g").attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
 svg2.call(tip2);
 
 //colors
 var data = [
-  {name: gon.top_words[0][0], frequency: gon.top_words[0][1], id: 10},
-  {name: gon.top_words[1][0], frequency: gon.top_words[1][1], id: 11},
-  {name: gon.top_words[2][0], frequency: gon.top_words[2][1], id: 12},
-  {name: gon.top_words[3][0], frequency: gon.top_words[3][1], id: 13},
-  {name: gon.top_words[4][0], frequency: gon.top_words[4][1], id: 14},
-  {name: gon.top_words[5][0], frequency: gon.top_words[5][1], id: 15},
-  {name: gon.top_words[6][0], frequency: gon.top_words[6][1], id: 16},
-  {name: gon.top_words[7][0], frequency: gon.top_words[7][1], id: 17},
-  {name: gon.top_words[8][0], frequency: gon.top_words[8][1], id: 18},
-  {name: gon.top_words[9][0], frequency: gon.top_words[9][1], id: 19},
-
+  {
+    name: gon.top_words[0][0],
+    frequency: gon.top_words[0][1],
+    id: 10
+  }, {
+    name: gon.top_words[1][0],
+    frequency: gon.top_words[1][1],
+    id: 11
+  }, {
+    name: gon.top_words[2][0],
+    frequency: gon.top_words[2][1],
+    id: 12
+  }, {
+    name: gon.top_words[3][0],
+    frequency: gon.top_words[3][1],
+    id: 13
+  }, {
+    name: gon.top_words[4][0],
+    frequency: gon.top_words[4][1],
+    id: 14
+  }, {
+    name: gon.top_words[5][0],
+    frequency: gon.top_words[5][1],
+    id: 15
+  }, {
+    name: gon.top_words[6][0],
+    frequency: gon.top_words[6][1],
+    id: 16
+  }, {
+    name: gon.top_words[7][0],
+    frequency: gon.top_words[7][1],
+    id: 17
+  }, {
+    name: gon.top_words[8][0],
+    frequency: gon.top_words[8][1],
+    id: 18
+  }, {
+    name: gon.top_words[9][0],
+    frequency: gon.top_words[9][1],
+    id: 19
+  }
 ]
 // The following code was contained in the callback function.
-x2.domain(data.map(function(d) { return d.name; }));
-y2.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+x2.domain(data.map(function (d) {
+  return d.name;
+}));
+y2.domain([
+  0,
+  d3.max(data, function (d) {
+    return d.frequency;
+  })
+]);
 
-svg2.append("g")
-  .attr("class", "x axis")
-  .attr("transform", "translate(0," + height2 + ")")
-  .style('fill', 'white')
-  .call(xAxis2);
+svg2.append("g").attr("class", "x axis").attr("transform", "translate(0," + height2 + ")").style('fill', 'white').call(xAxis2);
 
-svg2.append("g")
-  .attr("class", "y axis")
-  .call(yAxis2)
-  .style('fill', 'white')
-  .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", -50)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .style('fill', 'white')
-    .text("Count");
+svg2.append("g").attr("class", "y axis").call(yAxis2).style('fill', 'white').append("text").attr("transform", "rotate(-90)").attr("y", -50).attr("dy", ".71em").style("text-anchor", "end").style('fill', 'white').text("Count");
 
-svg2.append("text")
-  .attr("x", (width2 / 2))
-  .attr("y", 0 - (margin2.top / 2))
-  .attr("text-anchor", "middle")
-  .style("font-size", "16px")
-  .style("text-decoration", "underline")
-  .text("Top Words")
-  .style('fill', 'white');
+svg2.append("text").attr("x", (width2 / 2)).attr("y", 0 - (margin2.top / 2)).attr("text-anchor", "middle").style("font-size", "16px").style("text-decoration", "underline").text("Top Words").style('fill', 'white');
 
-
-svg2.selectAll(".bar")
-  .data(data)
-  .enter().append("rect")
-  .attr("class", function(d, i) { return 'bar_' + d.id} )
-  .attr("x", function(d) { return x2(d.name); })
-  .attr("width", x2.rangeBand())
-  .attr("y", function(d) { return y2(d.frequency); })
-  .attr("height", function(d) { return height2 - y2(d.frequency); })
-  .on('mouseover', tip2.show)
-  .on('mouseout', tip2.hide)
+svg2.selectAll(".bar").data(data).enter().append("rect").attr("class", function (d, i) {
+  return 'bar_' + d.id
+}).attr("x", function (d) {
+  return x2(d.name);
+}).attr("width", x2.rangeBand()).attr("y", function (d) {
+  return y2(d.frequency);
+}).attr("height", function (d) {
+  return height2 - y2(d.frequency);
+}).on('mouseover', tip2.show).on('mouseout', tip2.hide)
 
 function type(d) {
   d.frequency = +d.frequency;
   return d;
 }
 
-
 //setTimeout delay to allow the dummy score to load
-setTimeout(function() {
-  (function(d3) {
-      //dummyscore to generate each length of the pie chart arc
-      var dummyscore = document.getElementById('dummyscore').innerHTML;
-      //do everything out of 100
-      //max will be 0.4
-      var bar = (dummyscore / 0.4) * 100;
-      var emptySpace = 100 - bar;
-      'use strict';
-      var dataset = [
-        { label: 'Bar', count: bar },
-        { label: 'Empty Space', count: emptySpace },
+setTimeout(function () {
+  (function (d3) {
+    //dummyscore to generate each length of the pie chart arc
+    var dummyscore = document.getElementById('dummyscore').innerHTML;
+    //do everything out of 100 max will be 0.4
+    var bar = (dummyscore / 0.4) * 100;
+    var emptySpace = 100 - bar;
+    'use strict';
+    var dataset = [
+      {
+        label: 'Bar',
+        count: bar
+      }, {
+        label: 'Empty Space',
+        count: emptySpace
+      }
+    ];
+    //not responsive; look into this
+    var width = 240;
+    var height = 232;
+    var donutWidth = 20;
+    var radius = Math.min(width, height) / 2;
+    var color = d3.scale.category20c();
 
-      ];
-      //not responsive; look into this
-      var width = 240;
-      var height = 232;
-      var donutWidth = 20;
-      var radius = Math.min(width, height) / 2;
-      var color = d3.scale.category20c();
+    var colors = ["white", "#051454"];
+    var svg = d3.select('#chart').append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
 
-      var colors = ["white", "#051454"];
-      var svg = d3.select('#chart')
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append('g')
-        .attr('transform', 'translate(' + (width / 2) +
-          ',' + (height / 2) + ')');
+    var arc = d3.svg.arc().innerRadius(radius - donutWidth).outerRadius(radius);
+    var pie = d3.layout.pie().value(function (d) {
+      return d.count;
+    }).sort(null);
+    var path = svg.selectAll('path').data(pie(dataset)).enter().append('path').attr('d', arc).attr('fill', function (d, i) {
+      return colors[i];
+    });
+    path.transition().duration(2000).attrTween("d", tweenPie);
 
-      var arc = d3.svg.arc()
-        .innerRadius(radius - donutWidth)
-        .outerRadius(radius);
-      var pie = d3.layout.pie()
-        .value(function(d) { return d.count; })
-        .sort(null);
-      var path = svg.selectAll('path')
-        .data(pie(dataset))
-        .enter()
-        .append('path')
-        .attr('d', arc)
-        .attr('fill', function(d, i) {
-          return colors[i];
-        });
-        path.transition()
-        .duration(2000)
-        .attrTween("d", tweenPie);
-
-        //the rotating arc function
-        function tweenPie(b) {
-          var i = d3.interpolate({startAngle: 0, endAngle: 2 * Math.PI}, b);
-          return function(t) { return arc(i(t)); };
-        }
-    })(window.d3);
+    //the rotating arc function
+    function tweenPie(b) {
+      var i = d3.interpolate({
+        startAngle: 0,
+        endAngle: 2 * Math.PI
+      }, b);
+      return function (t) {
+        return arc(i(t));
+      };
+    }
+  })(window.d3);
 }, 800);
 
-$(document).ready(function() {
+$(document).ready(function () {
   //highlight the option when you hover over it
-  $('.options').mouseenter(function() {
+  $('.options').mouseenter(function () {
     $(this).css("opacity", "1");
   });
-  $('.options').mouseleave(function() {
+  $('.options').mouseleave(function () {
     $(this).css("opacity", "0.2");
   });
   //function to move the score circle and the comparison circle
-  var moveIcons = function() {
+  var moveIcons = function () {
     $('#score-circle').animate({
       left: "30%"
     }, 600);
@@ -380,23 +412,25 @@ $(document).ready(function() {
   //delay to make it look nicer
   setTimeout(moveIcons, 1500);
   var spanWidth = $('#comparison-intro').width();
-  $('#comparison').animate( { width: 1000 }, 3000 );
+  $('#comparison').animate({
+    width: 1000
+  }, 3000);
 
-  var showExtraInfo = function() {
+  var showExtraInfo = function () {
     $('#extra-info-div').animate({
       height: "60%"
     }, 300);
   }
 
-  var hideExtraInfo = function() {
+  var hideExtraInfo = function () {
     $('#extra-info-div').animate({
       height: "0%"
     }, 300);
   }
-  $("#twitbit-information").click(function() {
+  $("#twitbit-information").click(function () {
     showExtraInfo();
   });
-  $("#extra-info-close-button").click(function() {
+  $("#extra-info-close-button").click(function () {
     hideExtraInfo();
   });
 });

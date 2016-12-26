@@ -162,6 +162,26 @@ function initMap() {
       dataPage.style.backgroundImage = 'url(http://orig08.deviantart.net/82fa/f/2013/049/c/0/night_stars_by_vronde-d5vdak6.png)';
     }
 
+    var best_friends = gon.mentions;
+    var first_friend_object = best_friends[0];
+    var second_friend_object = best_friends[1];
+    var third_friend_object = best_friends[2];
+
+    var first_place_name = document.getElementById("first-place-name");
+    first_place_name.innerHTML = first_friend_object[0];
+    var first_place_pic = document.getElementById("first-place-pic");
+    first_place_pic.style.backgroundImage = 'url('+first_friend_object[2]+')';
+
+    var second_place_name = document.getElementById("second-place-name");
+    second_place_name.innerHTML = second_friend_object[0];
+    var second_place_pic = document.getElementById("second-place-pic");
+    second_place_pic.style.backgroundImage = 'url('+second_friend_object[2]+')';
+
+    var third_place_name = document.getElementById("third-place-name");
+    third_place_name.innerHTML = third_friend_object[0];
+    var third_place_pic = document.getElementById("third-place-pic");
+    third_place_pic.style.backgroundImage = 'url('+third_friend_object[2]+')';
+
     //function to create the counter generating the score
     jQuery.fn.extend({
       animateCount : function (from, to, time) {

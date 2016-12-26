@@ -43,6 +43,7 @@ class SearchesController < ApplicationController
       config.access_token = "750506018744832000-rLtS7VCeOW59PSGpn5F27zNubaYj153"
       config.access_token_secret = "JbMM8fDX4fO6Izw0vKCCAO26ygHuKfQoPRiAdLyEF8yG1"
     end
+    #hash containing a list of all mentions a user makes
     $mentions = Hash.new(0)
     #instantiate the hash to track top word usage_count_array
     @top_words = Hash.new(0)
@@ -153,17 +154,33 @@ class SearchesController < ApplicationController
         end
       end
     end
+    #pass the top words array which is an array of arrays
     gon.top_words = @top_words_array
+    #create the mentions array which will also be an array of arrays
     $mentions_array = []
+    #sort the mentions hash by count in descending order
+    $mentions = $mentions.sort_by {|k,v| v}.reverse
+    #for loops to convert the hash to an array
+    mentions_count = 1
     $mentions.each do |username, count|
-      mention = Array.new(2)
-      mention[0] = username
-      mention[1] = count
-      $mentions_array.push(mention)
+      #username_string = username.to_s
+      #letters = username_string.split("")
+      #new_username = letters[1..letters.length]
+      #final_username = new_username.join("")
+      #pic = @friend_tweet.user.profile_image_url
+      mention = Array.new(3)
+      if mentions_count < 4
+        #@friend_tweet = client.user(username)
+        mention[0] = username
+        mention[1] = count
+        #mention[2] = username == "@thealanwu"
+        #mention[2] = "http://pbs.twimg.com" + @friend_tweet.profile_image_url.path
+        $mentions_array.push(mention)
+        mentions_count += 1
+      end
     end
     gon.mentions = $mentions_array
   end
-
 
 
   ##################### DICTIONARY/FILTERING TWEETS METHODS ############################
@@ -217,8 +234,8 @@ class SearchesController < ApplicationController
     word_copy = word
     letters = word.split("") #this is an array of letters now
     if letters.include? '@'
-      username = word_copy.to_sym
-      $mentions[username] += 1
+      #username = word_copy.to_sym
+      $mentions[word] += 1
       return true
     else
       return false
