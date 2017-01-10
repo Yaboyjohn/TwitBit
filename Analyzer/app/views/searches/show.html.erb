@@ -89,7 +89,13 @@
 <div id="map-page">
   <!-- the google map-->
   <h2 id="hotspots-title">🔥 MY HOTSPOTS 🔥</h2>
-  <div id="map"></div>
+  <% if @locations.empty?%>
+  <h1 id="map-error"> Oops! Looks like the location feature isn't enabled for your tweets. <br>Turn that
+    on if you want to see your hot spots! </h1>
+    <div id="map"></div>
+  <% else %>
+    <div id="map"></div>
+  <% end %>
 </div>
 <div id="friends_page">
   <h2 id="friends_title">Your Best Friends</h2>
@@ -133,10 +139,6 @@
 <script>
 
 // credit to "http://zeroviscosity.com/d3-js-step-by-step/step-3-adding-a-legend" for this chart
-for (index = 0; index < gon.mentions.length; index++) {
-  console.log(gon.mentions[index]);
-}
-
 var margin = {
   top: 40,
   right: 45,

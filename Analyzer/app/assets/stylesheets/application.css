@@ -450,6 +450,10 @@ body {
   left: 25%;
 }
 
+#map-error {
+  position: absolute;
+}
+
 #hotspots-title {
   font-family: Sriracha;
   color: red;
