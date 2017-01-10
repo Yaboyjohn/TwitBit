@@ -73,11 +73,10 @@
 <div id="options-container"></div>
 <div id="options-box">
   <ul id="options-list">
-    <li class="options" id="about">TwitBit Score</li>
-  </a>
-  <li class="options" id="projects">Data</li>
+  <li class="options" id="twitbit-score">TwitBit Score</li>
+  <li class="options" id="data">Data</li>
   <li class="options" id="hot-spots">Hot Spots</li>
-  <li class="options" id="contact">Best Friends</li>
+  <li class="options" id="bestfriends">Best Friends</li>
   <li class="options"><%= link_to 'Search', new_search_path, id: "back-button" %></li>
   <li class="options"><%= link_to 'History', searches_path, id: "back-button" %></li>
 </ul>
@@ -412,7 +411,7 @@ $(document).ready(function () {
   //function to move the score circle and the comparison circle
   var moveIcons = function () {
     $('#score-circle').animate({
-      left: "30%"
+      left: "32%"
     }, 600);
     $('#comparison-picture-div').animate({
       left: "68%"
@@ -422,7 +421,7 @@ $(document).ready(function () {
   setTimeout(moveIcons, 1500);
   var spanWidth = $('#comparison-intro').width();
   $('#comparison').animate({
-    width: 1000
+    width: "50%"
   }, 3000);
 
   var showExtraInfo = function () {
@@ -441,6 +440,27 @@ $(document).ready(function () {
   });
   $("#extra-info-close-button").click(function () {
     hideExtraInfo();
+  });
+  //scrolling
+  $("#twitbit-score").click(function() {
+    $('body').animate({
+      scrollTop: 0
+    }, 1000);
+  });
+  $("#data").click(function() {
+    $('body').animate({
+      scrollTop: $("#data-page").offset().top
+    }, 1000);
+  });
+  $("#hot-spots").click(function() {
+    $('body').animate({
+      scrollTop: $("#map-page").offset().top
+    }, 1000);
+  });
+  $("#bestfriends").click(function() {
+    $('body').animate({
+      scrollTop: $("#friends_page").offset().top
+    }, 1000);
   });
 });
 </script>

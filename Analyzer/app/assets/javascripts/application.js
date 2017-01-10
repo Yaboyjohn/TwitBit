@@ -14,8 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-
-
 var map;
 function initMap() {
   // Constructor creates a new map - only center and zoom are required.

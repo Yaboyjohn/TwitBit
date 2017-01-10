@@ -211,7 +211,6 @@ body {
   position: absolute;
   top: 60%;
   left: 50%;
-  margin-right: -50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
 	width: 20%;
@@ -313,12 +312,13 @@ body {
 }
 
 #comparison {
-  width: 0px; height: 100px;
+  width: 0px;
+  height: 100px;
   white-space: nowrap;
   overflow: hidden;
   position: absolute;
   top: 20%;
-  left: 30%;
+  left: 31.5%;
 }
 
 #comparison-intro {

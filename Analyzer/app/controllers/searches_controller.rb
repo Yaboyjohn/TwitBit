@@ -170,11 +170,11 @@ class SearchesController < ApplicationController
       #pic = @friend_tweet.user.profile_image_url
       mention = Array.new(3)
       if mentions_count < 4
-        #@friend_tweet = client.user(username)
+        @friend_tweet = client.user(username)
         mention[0] = username
         mention[1] = count
         #mention[2] = username == "@thealanwu"
-        #mention[2] = "http://pbs.twimg.com" + @friend_tweet.profile_image_url.path
+        mention[2] = "http://pbs.twimg.com" + @friend_tweet.profile_image_url.path
         $mentions_array.push(mention)
         mentions_count += 1
       end
