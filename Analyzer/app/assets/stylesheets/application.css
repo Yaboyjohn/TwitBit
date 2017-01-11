@@ -22,6 +22,8 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgb(180, 177, 174);
 }
 
 #title {
@@ -64,6 +66,12 @@ body {
   width: 10%;
   height: 30px;
   padding: 0;
+  border-radius: 3px;
+}
+
+#search-history-button-container:hover {
+  cursor: pointer;
+  border: solid 2px white;
 }
 
 #search-history-button {
@@ -80,6 +88,11 @@ body {
   text-decoration: none;
   background-color: rgb(3, 20, 79);
   border: 0;
+}
+
+#go-button:hover {
+  cursor: pointer;
+  border: 2px white solid;
 }
 
 #go-icon {
@@ -102,7 +115,14 @@ body {
   position: absolute;
   top: 4%;
   left: 30%;
+  border-radius: 3px;
 }
+
+#new-search-container:hover {
+  border: solid 2px white;
+  cursor: pointer;
+}
+
 #search-button {
   position: absolute;
   color: white;
@@ -116,6 +136,7 @@ body {
 /* Search History Page */
 #search-history {
   font-family: Droid Sans;
+  margin-left: 8%;
 }
 
 #search-table {
@@ -469,4 +490,8 @@ body {
   top: 200%;
   position: absolute;
   background-color: rgb(22, 123, 195);
+}
+
+#error_message {
+  color: blue;
 }
