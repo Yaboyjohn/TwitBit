@@ -1,0 +1,17 @@
+@media (min-height: 1000px) {
+  #title {
+    padding-top: 30% !important;
+    color: white !important;
+  }
+
+  #go-icon {
+    width: 2% !important;
+    height: 2% !important;
+    margin-top: 0.1%;
+  }
+
+  body {
+    background-color: black !important;
+  }
+
+}

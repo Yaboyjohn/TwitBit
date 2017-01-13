@@ -1,0 +1,193 @@
+#time_graph_container {
+  width: 40%;
+  height: 80%;
+  position: absolute;
+  left: 10%;
+  top: 5%;
+}
+
+/* tweet time graph stying */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  position: absolute;
+  /*fill: blue;*/
+}
+
+.bar:hover {
+  fill: rgb(5, 212, 1) ;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.tweet_times_graph {
+  padding-left: 10%;
+}
+
+/* top words graph styling */
+#top_words_graph_container {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+}
+
+.bar_10 {
+  fill: rgb(87, 20, 224);
+}
+
+.bar_11 {
+  fill: rgb(200, 52, 110);
+}
+
+.bar_12 {
+  fill: rgb(56, 187, 53);
+}
+
+.bar_13 {
+  fill: rgb(47, 93, 182);
+}
+
+.bar_14 {
+  fill: rgb(226, 163, 42);
+}
+
+.bar_15 {
+  fill: rgb(217, 73, 28);
+}
+
+.bar_16 {
+  fill: rgb(225, 241, 40);
+}
+
+.bar_17 {
+  fill: rgb(52, 200, 147);
+}
+
+.bar_18 {
+  fill: rgb(55, 52, 200);
+}
+
+.bar_19 {
+  fill: rgb(52, 178, 200);
+}
+
+/* pie chart stylings */
+.tooltip {
+   background: #eee;
+   box-shadow: 0 0 5px #999999;
+   color: #333;
+   display: none;
+   font-size: 12px;
+   left: 33.5%;
+   padding: 10px;
+   position: absolute;
+   text-align: center;
+   top: 13%;
+   width: 80px;
+   z-index: 10;
+ }
+
+.legend {
+   font-size: 12px;
+ }
+
+
+rect {
+  stroke-width: 2;
+}
+
+/* Super Early Morning */
+.arc_1 {
+  fill: rgb(224, 135, 0);
+}
+
+.box_1 {
+  fill: rgb(224, 135, 0);
+  stroke: rgb(224, 135, 0);
+}
+
+/* Morning */
+.arc_2 {
+  fill: red;
+}
+
+.box_2 {
+  fill: red;
+  stroke: red;
+}
+
+/* Afternoon */
+.arc_3 {
+  fill: yellow;
+}
+
+.box_3 {
+  fill: yellow;
+  stroke: yellow;
+}
+
+/* Evening */
+.arc_4 {
+  fill: rgb(27, 223, 29);
+}
+
+.box_4 {
+  fill: rgb(27, 223, 29);
+  stroke: rgb(27, 223, 29);
+}
+
+
+/* Night */
+.arc_5 {
+  fill: rgb(34, 150, 215);
+}
+
+.box_5 {
+  fill: rgb(34, 150, 215);
+  stroke: rgb(34, 150, 215);
+}
+
+
+/* Late Night */
+.arc_6 {
+  fill: rgb(143, 27, 198);
+}
+
+.box_6 {
+  fill: rgb(143, 27, 198);
+  stroke: rgb(143, 27, 198);
+}

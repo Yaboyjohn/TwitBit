@@ -1,0 +1,212 @@
+#friends_page {
+  top: 300%;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: rgb(46, 170, 231);
+}
+
+#friends_title {
+  font-size: 50px;
+  font-family: Lato;
+  color: white;
+  text-align: center;
+}
+
+.first-place {
+  position: absolute;
+  left: 44%;
+  background-color: rgb(29, 88, 201);
+}
+
+.place-pic-container {
+  width: 80%;
+  height: 30%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: rgb(236, 231, 233);
+  margin: 0 auto;
+  margin-top: 8%;
+  border: solid 2px rgb(236, 231, 233);
+}
+
+.third-place-pic-container {
+  width: 80%;
+  height: 30%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: rgb(236, 231, 233);
+  margin: 0 auto;
+  margin-top: 8%;
+  border: solid 2px rgb(236, 231, 233);
+}
+
+.second-place {
+  top: 25%;
+  position: absolute;
+  left: 24%;
+  background-color: rgb(152, 16, 16);
+}
+
+.third-place {
+  position: absolute;
+  top: 25%;
+  left: 64%;
+  background-color: white;
+}
+
+.place-div {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  height: 60%;
+  width: 12%;
+  -webkit-box-shadow: 17px 20px 39px 6px rgba(43,42,43,1);
+  -moz-box-shadow: 17px 20px 39px 6px rgba(43,42,43,1);
+  box-shadow: 17px 20px 39px 6px rgba(43,42,43,1);
+}
+
+/* second place arrows */
+.first-arrow-down1 {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 80px 80px 0 0;
+  border-color: rgb(152, 16, 16) transparent transparent transparent;
+  position: absolute;
+  left: 24%;
+  top: 85%;
+}
+
+.first-arrow-down2 {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 80px 80px 0;
+  border-color: transparent rgb(152, 16, 16) transparent transparent;
+  position: absolute;
+  left: 30.4%;
+  top: 85%;
+}
+
+/* first place arrows */
+.second-arrow-down1 {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 80px 80px 0 0;
+  border-color: rgb(29, 88, 201) transparent transparent transparent;
+  position: absolute;
+  left: 44%;
+  top: 80%;
+}
+
+.second-arrow-down2 {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 80px 80px 0;
+  border-color: transparent rgb(29, 88, 201) transparent transparent;
+  position: absolute;
+  left: 50.4%;
+  top: 80%;
+}
+
+/* third place arrows */
+.third-arrow-down1 {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 80px 80px 0 0;
+  border-color: white transparent transparent transparent;
+  position: absolute;
+  left: 64%;
+  top: 85%;
+}
+
+.third-arrow-down2 {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 80px 80px 0;
+  border-color: transparent white transparent transparent;
+  position: absolute;
+  left: 70.4%;
+  top: 85%;
+}
+
+#first-place-pic {
+  width: 80%;
+  height: 80%;
+  margin-left: 10%;
+  margin-top: 10%;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  border-radius: 3px;
+}
+
+#second-place-pic {
+  width: 80%;
+  height: 80%;
+  margin-left: 10%;
+  margin-top: 10%;
+  background-color: black;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  border-radius: 3px;
+}
+
+#third-place-pic {
+  width: 80%;
+  height: 80%;
+  margin-left: 10%;
+  margin-top: 10%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  border-radius: 3px;
+}
+
+.place-name {
+  text-align: center;
+}
+
+.place-name:hover {
+  color: rgb(10, 133, 222);
+  cursor: pointer;
+}
+
+.place-number {
+  font-size: 70px;
+  text-align: center;
+  font-family: Timmana;
+  margin: 0;
+  padding: 0;
+}
+
+#first-place {
+  color: rgb(255,215,0);
+}
+
+#second-place {
+  color: 	rgb(192,192,192);
+}
+
+#third-place {
+  color: #cd7f32;
+}
+
+.mentions-number {
+  font-family: Hind;
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}

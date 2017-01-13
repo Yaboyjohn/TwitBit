@@ -1,0 +1,89 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Hind">
+</head>
+<style>
+  body {
+    background-color: rgb(111, 190, 245);
+  }
+  #error_message {
+    color: white;
+    font-family: Hind;
+    position: absolute;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 40%;
+  }
+
+  #search-button {
+    position: absolute;
+    font-family: Hind;
+    color: rgb(15, 18, 112);
+    transform: translate(-50%, -50%);
+    left: 47%;
+    top: 55%;
+  }
+
+  #search-button:hover {
+    cursor: pointer;
+    color: white;
+  }
+
+  #history-button {
+    position: absolute;
+    font-family: Hind;
+    color: rgb(15, 18, 112);
+    transform: translate(-50%, -50%);
+    left: 53%;
+    top: 55%;
+  }
+
+  #history-button:hover {
+    cursor: pointer;
+    color: white;
+  }
+
+  @media (max-width: 1100px) {
+    #search-button {
+      left: 44%;
+    }
+    #history-button {
+      left: 56%;
+    }
+  }
+
+  @media (max-width: 550px) {
+    #search-button {
+      left: 40%;
+    }
+    #history-button {
+      left: 60%;
+    }
+  }
+
+  @media (max-width: 350px) {
+    #search-button {
+      left: 30%;
+    }
+    #history-button {
+      left: 70%;
+    }
+  }
+
+  @media (max-width: 645px) {
+    #error_message {
+      top: 35%;
+      font-size: 30px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    #error_message {
+      top: 30%;
+      font-size: 25px;
+    }
+  }
+</style>
+<h1 id="error_message"> Sorry looks like this account is private. Please try another user! </h1>
+<%= link_to 'New Search', new_search_path, id: "search-button" %>
+<%= link_to 'History', searches_path, id: "history-button" %>
