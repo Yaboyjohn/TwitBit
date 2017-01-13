@@ -6,6 +6,7 @@
 <p id="total_word_count">Total word count: <%= $total_word_count %></p>
 <table id="misspelled_words_table">
   <th> Misspelled Words </th>
+  <!--
     <% if $misspelled_words.length >= 60 %>
       <% @first_20 = $misspelled_words[0..19] %>
       <% @first_20.each do |word| %>
@@ -20,4 +21,10 @@
         </tr>
       <% end %>
     <% end %>
+  -->
+  <% $misspelled_words.each do |word| %>
+  <tr>
+    <td class="result-name"><%= word %></td>
+  </tr>
+  <% end %>
 </table>
