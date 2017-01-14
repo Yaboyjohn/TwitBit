@@ -1,8 +1,63 @@
-@media (max-width: 900px) {
+@media (max-width: 1082px) and (max-height: 800px){
+  #new-search-container {
+    width: 14% !important;
+    left: 35% !important;
+  }
+    #delete-button {
+      font-size: 12px !important;
+      margin-left: 5px !important;
+    }
+}
+
+
+
+@media (max-width: 900px) and (max-height: 800px){
   #search-history {
     left: 6%;
     font-size: 25px;
   }
+}
+
+@media (max-width: 800px) and (max-height: 800px){
+  #new-search-container {
+    width: 16% !important;
+    left: 40% !important;
+  }
+
+  #search-button {
+    font-size: 12px;
+    margin-left: 25% !important;
+    top: 27% !important;
+  }
+
+  #username-search {
+    font-size: 12px !important;
+  }
+  #search-table {
+    width: 30% !important;
+  }
+}
+
+@media (max-width: 700px) and (max-height: 800px){
+  #delete-button {
+    margin-left: 5px !important;
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 560px)and (max-height: 800px) {
+  #new-search-container {
+    width: 16% !important;
+    height: 4% !important;
+    left: 50% !important;
+  }
+
+  #search-button {
+    font-size: 10px;
+    margin-left: 22% !important;
+    top: 27% !important;
+  }
+
 }
 
 @media (min-height: 1000px) {

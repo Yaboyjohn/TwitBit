@@ -1,0 +1,22 @@
+@media (max-width: 1200px) and (max-height: 800px){
+  #twitbit-title {
+    font-size: 80px !important;
+  }
+
+  #comparison-intro {
+    font-size: 30px !important;
+  }
+
+  #comparison-category {
+    font-size: 18px !important;
+  }
+
+  #score {
+    font-size: 35px !important;
+  }
+
+  #comparison-picture-div {
+    width: 12% !important;
+    height: 35% !important;
+  }
+}

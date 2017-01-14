@@ -1,8 +1,6 @@
 /* nexus 5x */
 @media (min-height: 1000px) {
-  body {
-    background-color: #051454 !important;
-  }
+
   #comparison-picture-div {
     width: 22% !important;
     height: 8% !important;
@@ -138,7 +136,7 @@
     left: 68% !important;
   }
 }
-
+/*
 @media (max-height: 1500px) and (max-width: 1300px) {
   #comparison-picture-div {
     width: 20% !important;
@@ -190,3 +188,4 @@
     top: 64.5% !important;
   }
 }
+*/

@@ -13,5 +13,72 @@
   body {
     background-color: black !important;
   }
+}
+
+@media (max-width: 1000px) {
+  #search-history-button {
+    font-size: 12px !important;
+  }
+
+  #search-history-button-container {
+    height: 24px !important;
+  }
+
+  #search-box {
+    font-size: 15px !important;
+  }
+
+  #title {
+    font-size: 80px !important;
+  }
+
+  #description {
+    font-size: 35px !important;
+  }
+
+  #go-icon {
+    width: 3% !important;
+    right: 35.8% !important;
+  }
+}
+
+@media (max-width: 780px) {
+  #search-history-button-container {
+    width: 15% !important;
+    height: 28px !important;
+  }
+
+  #search-history-button {
+    font-size: 12px !important;
+    padding-top: 5% !important;
+  }
+
+  #search-box {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 630px) {
+  #search-history-button-container {
+    width: 18% !important;
+    height: 28px !important;
+  }
+
+  #search-box {
+    font-size: 10px !important;
+  }
+
+  #go-icon {
+    width: 4% !important;
+    right: 35.4  % !important;
+  }
+
+  #title {
+    font-size: 60px !important;
+  }
+
+  #description {
+    font-size: 30px !important;
+  }
 
 }
